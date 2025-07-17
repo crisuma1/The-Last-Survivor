@@ -1,0 +1,71 @@
+# ========================
+# Unity 기본 무시 파일
+# ========================
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+MemoryCaptures/
+
+# VS/IDE
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+
+# OS 별 불필요 파일
+.DS_Store
+Thumbs.db
+
+# Crash Reports
+sysinfo.txt
+
+# Unity Collaborate
+.collabignore
+
+# Rider IDE
+.idea/
+*.sln.iml
+
+# ========================
+# 대용량 에셋 제외 (원할 경우 수동 추가)
+# ========================
+
+*.mp3
+*.wav
+*.ogg
+*.fbx
+*.obj
+*.png
+*.jpg
+*.jpeg
+*.tga
+*.tiff
+*.zip
+*.rar
+*.7z
+*.mp4
+*.mov
+*.avi
+*.exr
+*.psd
+*.blend
+*.max
+*.c4d
+
+# ========================
+# 포함 필수 항목 (절대 무시되면 안 되는 것)
+# ========================
+!Assets/
+!ProjectSettings/
+!Packages/
