@@ -1,7 +1,4 @@
-# ========================
 # Unity 기본 무시 파일
-# ========================
-
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -10,7 +7,7 @@
 [Ll]ogs/
 MemoryCaptures/
 
-# VS/IDE
+# VS/IDE 관련
 .vs/
 *.csproj
 *.unityproj
@@ -23,7 +20,7 @@ MemoryCaptures/
 *.mdb
 *.opendb
 
-# OS 별 불필요 파일
+# OS 임시 파일
 .DS_Store
 Thumbs.db
 
@@ -33,42 +30,11 @@ sysinfo.txt
 # Unity Collaborate
 .collabignore
 
-# Rider IDE
+# JetBrains Rider IDE
 .idea/
 *.sln.iml
 
-# ========================
-# 대용량 에셋 중 **일부만 무시하고, 나머지는 포함**
-# ========================
-
-# 주로 불필요하거나 무거운 것만 무시
-*.zip
-*.rar
-*.7z
-*.mov
-*.avi
-*.psd
-*.blend
-*.max
-*.c4d
-
-# ⚠️ 아래 확장자들은 포함시키기 위해 주석 처리 또는 제거
-# *.mp3
-# *.wav
-# *.ogg
-# *.fbx
-# *.obj
-# *.png
-# *.jpg
-# *.jpeg
-# *.tga
-# *.tiff
-# *.mp4
-# *.exr
-
-# ========================
-# 포함 필수 항목 (절대 무시되면 안 되는 것)
-# ========================
+# 반드시 포함시킬 폴더
 !Assets/
 !ProjectSettings/
 !Packages/

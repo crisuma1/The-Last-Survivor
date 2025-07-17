@@ -111,11 +111,12 @@ public class Gun : MonoBehaviour
 
 
         // 총알 생성 시 발사 방향에 맞게 회전 설정
-        GameObject newBullet = Instantiate(bullet, fireTransform.position, fireTransform.rotation);
+        // 총알이 발사될 위치를 계산(반동때문에앞으로)
+        Vector3 spawnPos = fireTransform.position + fireTransform.forward * 0.5f;
 
-        // 기본 회전값을 수정하여 총알이 뾰족한 부분이 발사 방향을 향하게 설정
-        // 예시: 총알 프리팹의 로컬 Z축이 아래쪽을 향하고 있다면 90도를 회전시켜줍니다.
-        newBullet.transform.rotation = fireTransform.rotation * Quaternion.Euler(0, 360, 180); // Z축 90도 회전
+        GameObject newBullet = Instantiate(bullet, spawnPos, Quaternion.LookRotation(fireTransform.forward));
+
+       
 
         // 발사 방향을 유지하도록 forward 방향을 설정
         newBullet.transform.forward = fireTransform.forward; // 발사 방향
