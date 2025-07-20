@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour {
 
     // 점수 텍스트 갱신
     public void UpdateScoreText(int newScore) {
-        scoreText.text = "Score : " + newScore;
+        scoreText.text = "Kill : " + newScore;
     }
 
     // 적 웨이브 텍스트 갱신
