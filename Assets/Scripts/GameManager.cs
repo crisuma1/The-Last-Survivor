@@ -55,6 +55,6 @@ public class GameManager : MonoBehaviour {
         // 게임 오버 상태를 참으로 변경
         isGameover = true;
         // 게임 오버 UI를 활성화
-        UIManager.instance.SetActiveGameoverUI(true);
+        GlobalUIManager.instance.SetActiveGameoverUI(true);
     }
 }
