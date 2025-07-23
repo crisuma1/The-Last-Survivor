@@ -124,10 +124,6 @@ public class Gun : MonoBehaviour
 
 
 
-
-
-
-
         // 발사 이펙트 재생 시작
         StartCoroutine(ShotEffect(hitPosition));
 
