@@ -49,7 +49,7 @@ public class MotionSensorGun : MonoBehaviour
         if (sensor == null || firePoint == null || bulletPrefab == null)
             return;
 
-        if (Physics.Raycast(sensor.position, sensor.forward, out RaycastHit hit, raycastDistance, playerLayer))
+        if (Physics.Raycast(sensor.position, sensor.forward, out RaycastHit hit, raycastDistance))
         {
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
