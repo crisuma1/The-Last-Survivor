@@ -29,7 +29,6 @@ public class AmmoPack : ScriptableObject, IItem {
             playerShooter.gun.ammoRemain += ammoAmount;
         }
 
-        // 사용되었으므로 수량을 감소시킴
-        Quantity--;
+    
     }
 }

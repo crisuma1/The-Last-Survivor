@@ -26,6 +26,6 @@ public class HealthPack : ScriptableObject, IItem {
         }
         // 사용된 아이템이므로, 수량을 감소시킴
      
-        Quantity--;
+     
     }
 }
