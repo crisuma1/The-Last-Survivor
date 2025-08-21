@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -12,10 +13,15 @@ public class InventoryUI : MonoBehaviour
     public class SlotUI
     {
         public Image iconImage;
-        public Text quantityText;
+        public TextMeshProUGUI quantityText;
     }
 
     public SlotUI[] slots = new SlotUI[10];  // slot0 ~ slot9
+
+    void Start()
+    {
+        RefreshAll();
+    }
 
     void Update()
     {

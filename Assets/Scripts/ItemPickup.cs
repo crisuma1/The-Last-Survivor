@@ -2,35 +2,40 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    public HealthPack itemAsset;
+    // 어떤 아이템이든 드래그할 수 있게 ScriptableObject로 받음
+    public ScriptableObject itemAsset;
     public int quantity = 1;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        var inventory = other.GetComponent<Inventory>();
+        var ui = FindObjectOfType<InventoryUI>();
+        if (inventory == null) return;
+
+        // SO 인스턴스 복제 후 IItem으로 캐스팅
+        var soInstance = ScriptableObject.Instantiate(itemAsset);
+        var newItem = soInstance as IItem;
+        if (newItem == null)
         {
-            Inventory inventory = other.GetComponent<Inventory>();
-            InventoryUI ui = FindObjectOfType<InventoryUI>();
+            Debug.LogError($"[ItemPickup] {itemAsset.name} 은(는) IItem을 구현하지 않았습니다.");
+            return;
+        }
 
-            if (inventory != null)
+        newItem.Quantity = quantity;
+
+        // 빈 슬롯에 넣기 (0 → 9)
+        for (int i = 0; i < inventory.itemSlots.Length; i++)
+        {
+            if (inventory.itemSlots[i] == null)
             {
-                // 아이템 복사 후 수량 지정
-                HealthPack newItem = ScriptableObject.Instantiate(itemAsset);
-                newItem.Quantity = quantity;
-
-                // 빈 슬롯 찾아서 등록
-                for (int i = 0; i < inventory.itemSlots.Length; i++)
-                {
-                    if (inventory.itemSlots[i] == null)
-                    {
-                        inventory.SetItem(i, newItem);
-                        ui.RefreshSlot(i);
-                        break;
-                    }
-                }
-
-                Destroy(gameObject); // 아이템 오브젝트 제거
+                inventory.SetItem(i, newItem);
+                ui?.RefreshSlot(i);
+                break;
             }
         }
+
+        Destroy(gameObject);
     }
 }

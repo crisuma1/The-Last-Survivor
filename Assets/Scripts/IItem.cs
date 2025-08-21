@@ -8,3 +8,6 @@ public interface IItem
     int Quantity { get; set; }     // 수량은 읽고 쓰는 기능 필요
     void Use(GameObject target);   // 아이템을 사용하는 기능
 }
+
+
+

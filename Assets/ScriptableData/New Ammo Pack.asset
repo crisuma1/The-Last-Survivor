@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Ammo Pack
   m_EditorClassIdentifier: 
   itemName: Ammo Pack
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 98bdcbf4fc31e2340bc64a5db9ac98f8, type: 3}
   quantity: 1
   ammoAmount: 30

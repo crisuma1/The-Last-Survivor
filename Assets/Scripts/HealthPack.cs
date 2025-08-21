@@ -25,7 +25,7 @@ public class HealthPack : ScriptableObject, IItem {
             life.RestoreHealth(healAmount);
         }
         // 사용된 아이템이므로, 수량을 감소시킴
-     
-     
+     Quantity--;
+
     }
 }

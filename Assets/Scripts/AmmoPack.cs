@@ -29,6 +29,7 @@ public class AmmoPack : ScriptableObject, IItem {
             playerShooter.gun.ammoRemain += ammoAmount;
         }
 
-    
+        Quantity--;
+
     }
 }
