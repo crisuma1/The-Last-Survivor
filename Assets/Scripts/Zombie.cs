@@ -53,7 +53,7 @@ public class Zombie : LivingEntity {
     public void Setup(ZombieData zombieData) {
         // 체력 설정
         startingHealth = zombieData.health;
-        health = zombieData.damage;
+        health = zombieData.health;
         // 공격력 설정
         damage = zombieData.damage;
         // 내비메시 에이전트의 이동 속도 설정

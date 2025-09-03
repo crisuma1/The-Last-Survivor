@@ -62,7 +62,7 @@ public class Gun : MonoBehaviour
     // 발사 시도
     public void Fire()
     {
-        // 🔒 UI 위에 마우스가 올라가 있으면 발사 금지
+        //  UI 위에 마우스가 올라가 있으면 발사 금지
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 

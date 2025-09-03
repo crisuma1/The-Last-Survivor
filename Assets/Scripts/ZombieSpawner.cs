@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 // 좀비 게임 오브젝트를 주기적으로 생성
 public class ZombieSpawner : MonoBehaviour
@@ -63,8 +64,22 @@ public class ZombieSpawner : MonoBehaviour
         // 랜덤 위치 선택
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
+        
+        NavMeshHit hit;
+        Vector3 spawnPos = spawnPoint.position;
+        if (NavMesh.SamplePosition(spawnPos, out hit, 3f, NavMesh.AllAreas))
+            spawnPos = hit.position;
+
+
+
         // 생성
-        Zombie zombie = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+        Zombie zombie = Instantiate(prefab, spawnPos, spawnPoint.rotation);
+
+
+        var agent = zombie.GetComponent<NavMeshAgent>();
+        if (agent != null && agent.enabled)
+            agent.Warp(spawnPos);
+
 
         // 리스트에 등록
         zombies.Add(zombie);
