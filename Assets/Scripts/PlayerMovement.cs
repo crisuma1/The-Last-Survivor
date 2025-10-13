@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 // 플레이어 캐릭터를 사용자 입력에 따라 움직이는 스크립트
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f; // 앞뒤 움직임의 속도
-    public float rotateSpeed = 5f; // 좌우 회전 속도
+    public float rotationSpeed = 3f;
     public float jumpForce = 7f;
     public Transform groundCheck; //  발밑 기준점
     public float groundCheckRadius = 0.3f;
@@ -30,36 +31,77 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
 
-        // 회전 실행
-        Rotate();
+      
         // 움직임 실행
-        Move();
-
+        MoveVertical();
+        MoveHorizontal();
+        Rotate();
         Jump();
 
-        // 입력값에 따라 애니메이터의 Move 파라미터 값을 변경
-        playerAnimator.SetFloat("Move", playerInput.move);
+        Vector2 moveInput = new Vector2(playerInput.horizontalmove, playerInput.verticalmove);
+        float moveSpeed = moveInput.magnitude; // 이동 벡터의 크기 (0~1)
+        playerAnimator.SetFloat("Move", moveSpeed);
     }
 
     // 입력값에 따라 캐릭터를 앞뒤로 움직임
-    private void Move()
+    private void MoveVertical()
     {
         // 상대적으로 이동할 거리 계산
         Vector3 moveDistance =
-            playerInput.move * transform.forward * moveSpeed * Time.deltaTime;
+            playerInput.verticalmove * transform.forward * moveSpeed * Time.deltaTime;
         // 리지드바디를 통해 게임 오브젝트 위치 변경
         playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
+        playerAnimator.SetFloat("Move", playerInput.verticalmove);
+    }
+
+    private void MoveHorizontal()
+    {
+        // 상대적으로 이동할 거리 계산
+        Vector3 moveDistance =
+            playerInput.horizontalmove * transform.right * moveSpeed * Time.deltaTime;
+        // 리지드바디를 통해 게임 오브젝트 위치 변경
+        playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
+        playerAnimator.SetFloat("Move", playerInput.horizontalmove);
     }
 
     // 입력값에 따라 캐릭터를 좌우로 회전
-    private void Rotate()
-    {
-        // 상대적으로 회전할 수치 계산
-        float turn =
-            playerInput.rotate * rotateSpeed * Time.deltaTime;
-        // 리지드바디를 통해 게임 오브젝트 회전 변경
-        playerRigidbody.rotation = playerRigidbody.rotation * Quaternion.Euler(0, turn, 0f);
+
+private void Rotate()
+{
+
+        /*
+        Vector3 moveDir = new Vector3(playerInput.horizontalmove, 0, playerInput.verticalmove);
+
+        // 1️ 입력이 거의 없으면 회전 안 함
+        if (moveDir.sqrMagnitude < 0.001f)
+            return;
+
+        // 2️정규화 (길이를 1로)
+        moveDir.Normalize();
+
+        // 3️ 현재 바라보는 방향과 이동 방향의 각도 차이 계산
+        float angleDiff = Vector3.Angle(transform.forward, moveDir);
+
+        // 4️ 각도 차이가 매우 작으면 회전 생략 (정면 유지)
+        if (angleDiff < 1f)
+            return;
+
+        // 5️ 목표 회전 계산
+        Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+
+        // 6️ 회전을 부드럽게 보간
+        float rotationSpeed = 5f;
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            Time.deltaTime * rotationSpeed
+        );
+        */
+
+
     }
+
+
 
     private void Jump()
     {
