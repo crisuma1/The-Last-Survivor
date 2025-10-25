@@ -31,11 +31,15 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
 
-      
+
         // 움직임 실행
+        Rotate();
+
+        
         MoveVertical();
         MoveHorizontal();
-        Rotate();
+        
+     
         Jump();
 
         Vector2 moveInput = new Vector2(playerInput.horizontalmove, playerInput.verticalmove);
@@ -68,8 +72,8 @@ public class PlayerMovement : MonoBehaviour
 
 private void Rotate()
 {
-
-        /*
+        
+        
         Vector3 moveDir = new Vector3(playerInput.horizontalmove, 0, playerInput.verticalmove);
 
         // 1️ 입력이 거의 없으면 회전 안 함
@@ -96,9 +100,9 @@ private void Rotate()
             targetRotation,
             Time.deltaTime * rotationSpeed
         );
-        */
+        
 
-
+        
     }
 
 
