@@ -12,36 +12,52 @@ public class PauseManager : MonoBehaviour
     public TextMeshProUGUI infoTitleText;
     public TextMeshProUGUI infoContentText;
 
+    private CameraControl cameraControl;
+    private bool isInfoShown = false;
+
     void Start()
     {
         pausePanel.SetActive(false);
+        cameraControl = Camera.main.GetComponentInParent<CameraControl>();
 
-      
     }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape)&&isInfoShown==false)
         {
             if (isPaused) ResumeGame();
             else PauseGame();
+            
         }
     }
 
     void PauseGame()
     {
+        cameraControl.enabled = false;
+        //마우스 커서 보이기
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+
         Time.timeScale = 0f;
         isPaused = true;
         pausePanel.SetActive(true);
+        isInfoShown = false;
     }
 
 
 
     public void ResumeGame()
     {
+        cameraControl.enabled = true;
         Time.timeScale = 1f;
         isPaused = false;
         pausePanel.SetActive(false);
+
+        //마우스 커서 숨기기
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+        isInfoShown = false;
     }
 
     public void GoToMainMenu()
@@ -74,7 +90,9 @@ public class PauseManager : MonoBehaviour
 
 
     void ShowInfo(string title, string content)
+
     {
+        isInfoShown= true;
         pausePanel.SetActive(false);
         inforPanel.SetActive(true);
         infoTitleText.text = title;
