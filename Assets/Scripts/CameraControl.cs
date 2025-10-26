@@ -51,6 +51,9 @@ public class CameraControl : MonoBehaviour
         mouseY = Mathf.Clamp(mouseY, cameraLimit.x, cameraLimit.y);
 
         transform.rotation = Quaternion.Euler(-mouseY, mouseX, 0);
+        //플레이어 카메라에맞게 회전(180도 회전)
+        player.rotation = Quaternion.Euler(0, mouseX+180, 0);
+       
     }
 
 
