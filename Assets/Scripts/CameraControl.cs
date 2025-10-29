@@ -30,7 +30,7 @@ public class CameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        direction = (Camera.main.transform.position - player.position).normalized;
+
         desiredDistance = Vector3.Distance(Camera.main.transform.position, player.position);
 
         // 카메라 초기 회전을 마우스 값으로 세팅
@@ -51,7 +51,7 @@ public class CameraControl : MonoBehaviour
 
     }
 
-    void CalculateCameraPosition()
+    void CalculateCameraRotation()
     {
         //새로운 위치 계산
         mouseX += Input.GetAxis("Mouse X") * sensitivity;
@@ -59,10 +59,9 @@ public class CameraControl : MonoBehaviour
         //카메라 리밋 적용
         mouseY = Mathf.Clamp(mouseY, cameraLimit.x, cameraLimit.y);
 
-        transform.rotation = Quaternion.Euler(-mouseY, mouseX, 0);
+        transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
         //플레이어 카메라에맞게 회전(180도 회전)
         player.parent.rotation = Quaternion.Euler(0, mouseX+180, 0);
-       
     }
 
 
@@ -81,30 +80,38 @@ public class CameraControl : MonoBehaviour
 
         if(clickToMoveCamera&& Input.GetAxisRaw("Fire2") != 0)
         {
-            CalculateCameraPosition();
+            CalculateCameraRotation();
         }
 
         if(clickToMoveCamera==false && isClicked)
         {
-            CalculateCameraPosition();
+            CalculateCameraRotation();
         }
 
-        direction = transform.forward;//Camera.main.transform.position - player.position;
-        //direction.Normalize();
+        direction = transform.forward;
+        //direction = (Camera.main.transform.position - player.position).normalized;
+        
+        /*
+        Debug.Log(transform.forward);
+        Debug.Log(direction);
+        Debug.DrawRay(player.position, transform.forward, Color.red);
+        Debug.DrawRay(player.position, direction, Color.green);
+        */
 
         //카메라와 플레이어사이에 물체가있어서 가려질시 앞당김
         if (Physics.SphereCast(player.position, sphereRadius, direction, out RaycastHit hit, desiredDistance))
         {
-            Debug.Log("T");
+            //Debug.Log("T");
             float newDist = Mathf.Clamp(hit.distance - 0.1f, minDistance, desiredDistance);
             Vector3 newPos = player.position + (direction * newDist);
-            Camera.main.transform.position = newPos;//Vector3.Lerp(Camera.main.transform.position, newPos, Time.deltaTime * smoothSpeed);
+            Camera.main.transform.position = newPos;
         }
         else
         {
-            Debug.Log("F");
+            //Debug.Log("F");
             desiredPosition = player.position + (direction * desiredDistance);
-            Camera.main.transform.position = desiredPosition;//Vector3.Lerp(Camera.main.transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+        
+            Camera.main.transform.position = desiredPosition; //Vector3.Slerp(Camera.main.transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
         }
     }
 }
