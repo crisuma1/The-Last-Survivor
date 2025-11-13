@@ -38,6 +38,8 @@ public class PlayerHealth : LivingEntity {
         // 플레이어 조작을 받는 컴포넌트들 활성화
         playerMovement.enabled = true;
         playerShooter.enabled = true;
+
+        
     }
 
     // 체력 회복
@@ -62,6 +64,8 @@ public class PlayerHealth : LivingEntity {
         base.OnDamage(damage, hitPoint, hitDirection);
         // 갱신된 체력을 체력 슬라이더에 반영
         healthSlider.value = health;
+
+        playerAnimator.SetTrigger("Hit");
     }
 
     // 사망 처리

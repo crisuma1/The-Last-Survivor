@@ -18,7 +18,7 @@ public class Zombie : LivingEntity {
     private Renderer zombieRenderer; // 렌더러 컴포넌트
 
     public float damage = 20f; // 공격력
-    public float timeBetAttack = 0.5f; // 공격 간격
+    private float timeBetAttack = 2f; // 공격 간격
     private float lastAttackTime; // 마지막 공격 시점
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티

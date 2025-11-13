@@ -25,11 +25,16 @@ public class CameraControl : MonoBehaviour
     private Vector3 direction;
     private float desiredDistance;
     private Vector3 desiredPosition;
+    private PlayerHealth playerHealth;
+  
 
 
     // Start is called before the first frame update
     void Start()
     {
+      
+        playerHealth = FindObjectOfType<PlayerHealth>();
+      
 
         desiredDistance = Vector3.Distance(Camera.main.transform.position, player.position);
 
@@ -69,49 +74,62 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (!playerHealth.dead) //죽었을때카메라회전안하게
         {
-            isClicked = true;
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                isClicked = true;
+            }
 
-        //카메라 줌인 줌아웃
-        if (canZoom && Input.GetAxis("Mouse ScrollWheel") != 0)
-            Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * sensitivity * 2;
+            //카메라 줌인 줌아웃
+            if (canZoom && Input.GetAxis("Mouse ScrollWheel") != 0)
+                Camera.main.fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * sensitivity * 2;
 
-        if(clickToMoveCamera&& Input.GetAxisRaw("Fire2") != 0)
-        {
-            CalculateCameraRotation();
-        }
+            if (clickToMoveCamera && Input.GetAxisRaw("Fire2") != 0)
+            {
+                CalculateCameraRotation();
+            }
 
-        if(clickToMoveCamera==false && isClicked)
-        {
-            CalculateCameraRotation();
-        }
+            if (clickToMoveCamera == false && isClicked)
+            {
+                CalculateCameraRotation();
+            }
 
-        direction = transform.forward;
-        //direction = (Camera.main.transform.position - player.position).normalized;
-        
-        /*
-        Debug.Log(transform.forward);
-        Debug.Log(direction);
-        Debug.DrawRay(player.position, transform.forward, Color.red);
-        Debug.DrawRay(player.position, direction, Color.green);
-        */
+            direction = transform.forward;
+            //direction = (Camera.main.transform.position - player.position).normalized;
 
-        //카메라와 플레이어사이에 물체가있어서 가려질시 앞당김
-        if (Physics.SphereCast(player.position, sphereRadius, direction, out RaycastHit hit, desiredDistance))
-        {
-            //Debug.Log("T");
-            float newDist = Mathf.Clamp(hit.distance - 0.1f, minDistance, desiredDistance);
-            Vector3 newPos = player.position + (direction * newDist);
-            Camera.main.transform.position = newPos;
+            /*
+            Debug.Log(transform.forward);
+            Debug.Log(direction);
+            Debug.DrawRay(player.position, transform.forward, Color.red);
+            Debug.DrawRay(player.position, direction, Color.green);
+            */
+
+            //카메라와 플레이어사이에 물체가있어서 가려질시 앞당김
+            if (Physics.SphereCast(player.position, sphereRadius, direction, out RaycastHit hit, desiredDistance))
+            {
+                //Debug.Log("T");
+                float newDist = Mathf.Clamp(hit.distance - 0.1f, minDistance, desiredDistance);
+                Vector3 newPos = player.position + (direction * newDist);
+                Camera.main.transform.position = newPos;
+            }
+            else
+            {
+                //Debug.Log("F");
+                desiredPosition = player.position + (direction * desiredDistance);
+
+                Camera.main.transform.position = desiredPosition; //Vector3.Slerp(Camera.main.transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+            }
         }
         else
         {
-            //Debug.Log("F");
-            desiredPosition = player.position + (direction * desiredDistance);
-        
-            Camera.main.transform.position = desiredPosition; //Vector3.Slerp(Camera.main.transform.position, desiredPosition, Time.deltaTime * smoothSpeed);
+            //마우스 커서 보이기
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
         }
+
+       
+
+      
     }
 }

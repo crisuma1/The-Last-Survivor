@@ -46,6 +46,8 @@ public class Gun : MonoBehaviour
         bulletLineRenderer.enabled = false;
     }
 
+  
+
     private void OnEnable()
     {
         // 전체 예비 탄약 양을 초기화

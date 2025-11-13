@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f; // 앞뒤 움직임의 속도
     public float rotationSpeed = 3f;
-    public float jumpForce = 7f;
+    private float jumpForce = 5f;
     public Transform groundCheck; //  발밑 기준점
     public float groundCheckRadius = 0.3f;
     public LayerMask groundLayer;
@@ -29,8 +29,11 @@ public class PlayerMovement : MonoBehaviour
     // FixedUpdate는 물리 갱신 주기에 맞춰 실행됨
     private void FixedUpdate()
     {
-        CheckGround();
 
+     
+
+        CheckGround();
+      
 
         // 이동처리
 
@@ -52,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         forward = forward * directionZ;
         right = right * directionX;
 
+
+        /*
         //회전처리
         if (directionX != 0 || directionZ != 0)
         {
@@ -59,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, angle, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.15f);
         }
+        */
+        
 
         //최종계산
 
@@ -87,6 +94,8 @@ public class PlayerMovement : MonoBehaviour
             Vector3 velocity = playerRigidbody.velocity;
             velocity.y = jumpForce;
             playerRigidbody.velocity = velocity;
+
+            playerAnimator.SetTrigger("Jump");
         }
     }
 
