@@ -32,6 +32,8 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+       // Debug.Log("충돌한 오브젝트: " + collision.gameObject.name);
+
         // 충돌한 물체가 플레이어가 아닐 경우 총알 제거
         if (collision.gameObject.tag != "Player")
         {

@@ -86,9 +86,10 @@ public class Gun : MonoBehaviour
 
         // 레이캐스트(시작지점, 방향, 충돌 정보 컨테이너, 사정거리)
         if (Physics.Raycast(fireTransform.position,
-            fireTransform.forward, out hit, fireDistance))
+            fireTransform.forward, out hit, fireDistance,~0, QueryTriggerInteraction.Ignore)) //트리거박스는 레이어에걸리지않도록
         {
-            // 레이가 어떤 물체와 충돌한 경우
+            // 레이가 어떤 물체와 충돌한 경우  
+           // Debug.Log("레이캐스트 충돌 대상: " + hit.collider.gameObject.name);
 
             // 충돌한 상대방으로부터 IDamageable 오브젝트를 가져오기 시도
             IDamageable target =

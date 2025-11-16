@@ -16,6 +16,8 @@ public class AutoDoorTrigger : MonoBehaviour
         {
             passwordUI.SetActive(true);
             fKeyUI.SetActive(false);
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
         }
     }
 
@@ -35,6 +37,8 @@ public class AutoDoorTrigger : MonoBehaviour
             isPlayerNear = false;
             fKeyUI.SetActive(false);
             passwordUI.SetActive(false);
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
         }
     }
 }
