@@ -3735,8 +3735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9237a6135a68a748bac9cbbfad81237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAxisName: Vertical
-  rotateAxisName: Horizontal
+  moveVerticalName: Vertical
+  moveHorizontalName: Horizontal
   fireButtonName: Fire1
   reloadButtonName: Reload
 --- !u!114 &8512681968067611305
@@ -3752,7 +3752,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  rotateSpeed: 180
+  rotationSpeed: 3
+  groundCheck: {fileID: 0}
+  groundCheckRadius: 0.3
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGrounded: 0
 --- !u!114 &8512681968067611307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3765,7 +3771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a558a9e6e5e01c842a3d56a3e825e54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 4116152675035378674}
+  OriginalGun: {fileID: 0}
+  CurrentGun: {fileID: 0}
   gunPivot: {fileID: 8512681967524257243}
   leftHandMount: {fileID: 4165594031000882792}
   rightHandMount: {fileID: 8314988899316005990}
@@ -4306,6 +4313,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 883544634029443274, guid: fa0521fd28de02d4ea7dbe5ce91615c0,
         type: 3}
+    - target: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
+        type: 3}
+      propertyPath: equipLocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
+        type: 3}
+      propertyPath: equipLocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
+        type: 3}
+      propertyPath: equipLocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
+        type: 3}
+      propertyPath: equipLocalPosition.x
+      value: -0.1938
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
+        type: 3}
+      propertyPath: equipLocalPosition.y
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
+        type: 3}
+      propertyPath: equipLocalPosition.z
+      value: 0.1998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
+        type: 3}
+      propertyPath: equipLocalRotation.y
+      value: 92
+      objectReference: {fileID: 0}
     - target: {fileID: 5710081091436613827, guid: 6a5a587dcb997b649a8077b4c24e375a,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -4597,18 +4639,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4116152675035378674 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5709610128592355241, guid: 6a5a587dcb997b649a8077b4c24e375a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8512681968536243291}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93c14943f73d87543b453f3a037d7029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4165594031000882792 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5759038043590902323, guid: 6a5a587dcb997b649a8077b4c24e375a,

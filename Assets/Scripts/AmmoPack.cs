@@ -23,10 +23,10 @@ public class AmmoPack : ScriptableObject, IItem {
         PlayerShooter playerShooter = target.GetComponent<PlayerShooter>();
 
         // PlayerShooter 컴포넌트가 있으며, 총 오브젝트가 존재하면
-        if (playerShooter != null && playerShooter.gun != null)
+        if (playerShooter != null && playerShooter.CurrentGun != null)
         {
             // 총의 남은 탄환 수를 ammo 만큼 더합니다.
-            playerShooter.gun.ammoRemain += ammoAmount;
+            playerShooter.CurrentGun.ammoRemain += ammoAmount;
         }
 
         Quantity--;

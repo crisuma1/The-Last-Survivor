@@ -16,7 +16,7 @@ public class LivingEntity : MonoBehaviour, IDamageable {
         // 체력을 시작 체력으로 초기화
         health = startingHealth;
     }
-
+    
     // 데미지를 입는 기능
     public virtual void OnDamage(float damage, Vector3 hitPoint,
         Vector3 hitNormal) {

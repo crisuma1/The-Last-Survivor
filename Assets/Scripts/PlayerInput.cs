@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 // 플레이어 캐릭터를 조작하기 위한 사용자 입력을 감지
 // 감지된 입력값을 다른 컴포넌트들이 사용할 수 있도록 제공
@@ -16,6 +17,15 @@ public class PlayerInput : MonoBehaviour
     public bool reload { get; private set; } // 감지된 재장전 입력값
 
     public bool jumpPressed { get; private set; }
+   
+    public PlayerShooter shooter { get; private set; }
+
+    private void Awake()
+    {
+        shooter = GetComponent<PlayerShooter>();
+    }
+
+
     // 매프레임 사용자 입력을 감지
     private void Update()
     {
@@ -41,5 +51,27 @@ public class PlayerInput : MonoBehaviour
         reload = Input.GetButtonDown(reloadButtonName);
 
         jumpPressed = Input.GetButtonDown("Jump");
+
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            shooter.ChangeGun(0);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            shooter.ChangeGun(1);
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            shooter.ChangeGun(2);
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            shooter.ChangeGun(3);
+        }
+
+
+
+
+
     }
 }

@@ -612,6 +612,11 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 1434946e82f8c4a21aee591d6e79a406, type: 2}
   ammoRemain: 100
   magAmmo: 0
+  LeftHandlePosition: {fileID: 0}
+  RightHandlePosition: {fileID: 0}
+  equipLocalPosition: {x: -0, y: 0, z: 0}
+  equipLocalRotation: {x: -0, y: 0, z: 0}
+  equipLocalScale: {x: 0.0717432, y: 0.0717432, z: 0.075029045}
 --- !u!1 &5710081091436973287
 GameObject:
   m_ObjectHideFlags: 0

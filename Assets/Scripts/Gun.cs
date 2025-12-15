@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 // 총을 구현한다
@@ -34,22 +38,78 @@ public class Gun : MonoBehaviour
 
     private float lastFireTime; // 총을 마지막으로 발사한 시점
 
+    private PlayerShooter shooter; //총을획득시 playershooter리스트에 추가
+
+    public Transform LeftHandlePosition;
+    public Transform RightHandlePosition;
+
+    //장착시 프리팹의 Trasnform값을그대로적용하기위해서 사용
+    [Header("Prefab Transform")]
+    public Vector3 equipLocalPosition;
+    public Vector3 equipLocalRotation;
+    public Vector3 equipLocalScale = Vector3.one;
+
+#if UNITY_EDITOR
+private void OnValidate()
+{
+    // 프리팹 에셋 상태에서만 실행
+    if (!gameObject.scene.IsValid())
+    {
+        equipLocalPosition = transform.localPosition;
+        equipLocalRotation = transform.localEulerAngles;
+        equipLocalScale    = transform.localScale;
+
+        // 변경 사항 저장
+        EditorUtility.SetDirty(this);
+    }
+}
+#endif
+
     private void Awake()
     {
         // 사용할 컴포넌트들의 참조를 가져오기
+        
+        if (gunAudioPlayer == null)
+        {
+            gunAudioPlayer = gameObject.AddComponent<AudioSource>();
+        }
         gunAudioPlayer = GetComponent<AudioSource>();
+
+        if (bulletLineRenderer == null)
+        {
+            bulletLineRenderer = gameObject.AddComponent<LineRenderer>();
+        }
         bulletLineRenderer = GetComponent<LineRenderer>();
 
         // 사용할 점을 두개로 변경
         bulletLineRenderer.positionCount = 2;
         // 라인 렌더러를 비활성화
         bulletLineRenderer.enabled = false;
+
+
+
+
     }
 
-  
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        PlayerShooter shooter = other.GetComponent<PlayerShooter>();
+        if (shooter == null) return;
+
+        if (shooter.CurrentGun == this) return;
+
+        shooter.AddGun(this);
+        gameObject.SetActive(false); // Destroy 말고
+    }
+
+
+
 
     private void OnEnable()
     {
+
         // 전체 예비 탄약 양을 초기화
         ammoRemain = gunData.startAmmoRemain;
         // 현재 탄창을 가득채우기
@@ -60,6 +120,9 @@ public class Gun : MonoBehaviour
         // 마지막으로 총을 쏜 시점을 초기화
         lastFireTime = 0;
     }
+   
+
+
 
     // 발사 시도
     public void Fire()
