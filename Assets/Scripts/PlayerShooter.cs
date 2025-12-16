@@ -153,7 +153,7 @@ public class PlayerShooter : MonoBehaviour {
         playerAnimator.SetIKRotation(AvatarIKGoal.RightHand,
             rightHandMount.rotation);
 
-
+        /*
         //crosshair의위치를총에따라다르게설정
         if (!crosshairInitialized)
         {
@@ -161,5 +161,6 @@ public class PlayerShooter : MonoBehaviour {
             CrosshairManager.Instance.SetTransform(CurrentGun.fireTransform);
             crosshairInitialized = true;
         }
+        */
     }
 }

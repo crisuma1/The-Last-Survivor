@@ -30,14 +30,13 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-       // Debug.Log("충돌한 오브젝트: " + collision.gameObject.name);
+   private void OnTriggerEnter(Collider other)
+{
+    Debug.Log("충돌한 오브젝트: " + other.gameObject.name);
 
-        // 충돌한 물체가 플레이어가 아닐 경우 총알 제거
-        if (collision.gameObject.tag != "Player")
-        {
-            Destroy(this.gameObject);
-        }
-    }
+    // 플레이어는 무시
+    if (other.CompareTag("Player")) return;
+
+    Destroy(gameObject);
+}
 }

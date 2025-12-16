@@ -148,26 +148,31 @@ private void OnValidate()
     // 실제 발사 처리
     private void Shot()
     {
+        //실제피격판정ray는 카메라중앙에서나감
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
+
+
         // 레이캐스트에 의한 충돌 정보를 저장하는 컨테이너
         RaycastHit hit;
         // 총알이 맞은 곳을 저장할 변수
         Vector3 hitPosition = Vector3.zero;
+        Debug.DrawRay(ray.origin, ray.direction * fireDistance, Color.green, 10.0f);
+
+        LayerMask l = LayerMask.GetMask("Player");
 
         // 레이캐스트(시작지점, 방향, 충돌 정보 컨테이너, 사정거리)
-        if (Physics.Raycast(fireTransform.position,
-            fireTransform.forward, out hit, fireDistance,~0, QueryTriggerInteraction.Ignore)) //트리거박스는 레이어에걸리지않도록
+        if (Physics.Raycast(ray,out hit, fireDistance,~l, QueryTriggerInteraction.Ignore)) //트리거박스는 레이어에걸리지않도록
         {
             // 레이가 어떤 물체와 충돌한 경우  
-           // Debug.Log("레이캐스트 충돌 대상: " + hit.collider.gameObject.name);
+           // Debug.Log("레이캐스트 충돌 대상: " + hit.collider.gameObject.name, hit.transform);
 
             // 충돌한 상대방으로부터 IDamageable 오브젝트를 가져오기 시도
             IDamageable target =
                 hit.collider.GetComponent<IDamageable>();
 
-            // 상대방으로 부터 IDamageable 오브젝트를 가져오는데 성공했다면
-            if (target != null)
+            // 상대방으로 부터 IDamageable 오브젝트를 가져오는데 성공했고자기자신이아닌경우
+            if (target != null && !hit.collider.CompareTag("Player"))
             {
-                // 상대방의 OnDamage 함수를 실행시켜서 상대방에게 데미지 주기
                 target.OnDamage(gunData.damage, hit.point, hit.normal);
             }
 
@@ -178,6 +183,7 @@ private void OnValidate()
         {
             // 레이가 다른 물체와 충돌하지 않았다면
             // 총알이 최대 사정거리까지 날아갔을때의 위치를 충돌 위치로 사용
+            Debug.Log($"충돌 안됌: {hitPosition}"); 
             hitPosition = fireTransform.position +
                           fireTransform.forward * fireDistance;
         }
@@ -186,16 +192,10 @@ private void OnValidate()
         // 총알 생성 시 발사 방향에 맞게 회전 설정
         // 총알이 발사될 위치를 계산(반동때문에앞으로)
         Vector3 spawnPos = fireTransform.position + fireTransform.forward * 0.5f;
-
-        GameObject newBullet = Instantiate(bullet, spawnPos, Quaternion.LookRotation(fireTransform.forward));
+        Vector3 shootDir = (hitPosition - spawnPos).normalized;
+        Instantiate(bullet, spawnPos, Quaternion.LookRotation(shootDir));
 
        
-
-        // 발사 방향을 유지하도록 forward 방향을 설정
-        newBullet.transform.forward = fireTransform.forward; // 발사 방향
-
-
-
         // 발사 이펙트 재생 시작
         StartCoroutine(ShotEffect(hitPosition));
 
