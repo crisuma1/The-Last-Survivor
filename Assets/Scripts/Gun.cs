@@ -43,12 +43,15 @@ public class Gun : MonoBehaviour
     public Transform LeftHandlePosition;
     public Transform RightHandlePosition;
 
+
     //장착시 프리팹의 Trasnform값을그대로적용하기위해서 사용
     [Header("Prefab Transform")]
     public Vector3 equipLocalPosition;
     public Vector3 equipLocalRotation;
     public Vector3 equipLocalScale = Vector3.one;
 
+
+    //프리팹의Transform정보를 총에저장해둠
 #if UNITY_EDITOR
 private void OnValidate()
 {
@@ -67,8 +70,9 @@ private void OnValidate()
 
     private void Awake()
     {
+
         // 사용할 컴포넌트들의 참조를 가져오기
-        
+
         if (gunAudioPlayer == null)
         {
             gunAudioPlayer = gameObject.AddComponent<AudioSource>();
@@ -91,6 +95,7 @@ private void OnValidate()
 
     }
 
+    //드랍되있는총을플레이어가획득시리스트에 추가
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
@@ -119,6 +124,7 @@ private void OnValidate()
         state = State.Ready;
         // 마지막으로 총을 쏜 시점을 초기화
         lastFireTime = 0;
+
     }
    
 

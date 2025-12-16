@@ -52,6 +52,7 @@ public class PlayerInput : MonoBehaviour
 
         jumpPressed = Input.GetButtonDown("Jump");
 
+        //총종류변경
         if(Input.GetKeyDown(KeyCode.Z))
         {
             shooter.ChangeGun(0);

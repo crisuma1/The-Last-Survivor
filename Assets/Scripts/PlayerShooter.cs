@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
+
 // 주어진 Gun 오브젝트를 쏘거나 재장전
 // 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
 public class PlayerShooter : MonoBehaviour {
@@ -15,10 +15,12 @@ public class PlayerShooter : MonoBehaviour {
     private Animator playerAnimator; // 애니메이터 컴포넌트
     
     private List<Gun> Guns = new List<Gun>(); //여러종류의 총종류를담을 리스트
-    private int currentGunIndex = 0;
+    private int currentGunIndex = 0; //현재활성화된총의인덱스
+    private bool crosshairInitialized = false; //총의조준선활성화여부
 
     public void Awake()
     {
+        //기본총장착
         if (OriginalGun == null)
         {
             Debug.LogError("OriginalGun이 할당되지 않았습니다.");
@@ -28,6 +30,8 @@ public class PlayerShooter : MonoBehaviour {
         Guns.Add(CurrentGun);
     }
 
+
+    //드랍된총을먹을시 총리스트에총추가
     public void AddGun(Gun gun)
     {
 
@@ -38,6 +42,7 @@ public class PlayerShooter : MonoBehaviour {
         Guns.Add(gun);    
     }
 
+    //플레이어input을받아서키입력시총교체
     public void ChangeGun(int index)
     {
         if (index < 0 || index >= Guns.Count) return;
@@ -54,6 +59,7 @@ public class PlayerShooter : MonoBehaviour {
         InitGun(CurrentGun);
     }
 
+    //총변경시총의Transform값조정
     private void InitGun(Gun gun)
     {
         gun.transform.SetParent(gunPivot, false);
@@ -146,5 +152,14 @@ public class PlayerShooter : MonoBehaviour {
             rightHandMount.position);
         playerAnimator.SetIKRotation(AvatarIKGoal.RightHand,
             rightHandMount.rotation);
+
+
+        //crosshair의위치를총에따라다르게설정
+        if (!crosshairInitialized)
+        {
+
+            CrosshairManager.Instance.SetTransform(CurrentGun.fireTransform);
+            crosshairInitialized = true;
+        }
     }
 }
