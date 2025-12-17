@@ -69691,7 +69691,7 @@ PrefabInstance:
     - target: {fileID: 6123456995739809073, guid: d3ad0e1242ce1aa47b0511d00c7eac44,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 0.971
       objectReference: {fileID: 0}
     - target: {fileID: 6123456995739809073, guid: d3ad0e1242ce1aa47b0511d00c7eac44,
         type: 3}
@@ -72014,6 +72014,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &2069648730 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5767767658853805677, guid: 153166fe35c054a7190cb112c92f6d23,
+    type: 3}
+  m_PrefabInstance: {fileID: 865242857312055770}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2079558091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75833,9 +75839,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8512681968067611307, guid: 153166fe35c054a7190cb112c92f6d23,
         type: 3}
+      propertyPath: spine
+      value: 
+      objectReference: {fileID: 2069648730}
+    - target: {fileID: 8512681968067611307, guid: 153166fe35c054a7190cb112c92f6d23,
+        type: 3}
       propertyPath: OriginalGun
       value: 
       objectReference: {fileID: 865242857312055771}
+    - target: {fileID: 8512681968067611307, guid: 153166fe35c054a7190cb112c92f6d23,
+        type: 3}
+      propertyPath: cameraPivot
+      value: 
+      objectReference: {fileID: 794324020}
     - target: {fileID: 8512681968067611307, guid: 153166fe35c054a7190cb112c92f6d23,
         type: 3}
       propertyPath: Guns.Array.size

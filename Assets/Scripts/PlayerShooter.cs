@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Rendering.PostProcessing;
 
 // 주어진 Gun 오브젝트를 쏘거나 재장전
 // 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
@@ -17,6 +18,13 @@ public class PlayerShooter : MonoBehaviour {
     private List<Gun> Guns = new List<Gun>(); //여러종류의 총종류를담을 리스트
     private int currentGunIndex = 0; //현재활성화된총의인덱스
     private bool crosshairInitialized = false; //총의조준선활성화여부
+
+    //카메라가아래를보면캐릭터도숙이기위해서 사용
+    [Header("Aim Spine Control")]
+    [SerializeField] Transform cameraPivot;   // 카메라 피벗
+    [SerializeField] Transform spine;          // Spine 또는 Chest
+    //스파인z값제외한나머지는기본값반영
+    private Quaternion spineBaseLocalRotation;
 
     public void Awake()
     {
@@ -78,13 +86,44 @@ public class PlayerShooter : MonoBehaviour {
     }
 
 
+    private void ApplySpineRotationByCamera()
+    {
+        //  카메라 X 각도 가져오기 (local 기준)
+        float camX = cameraPivot.localEulerAngles.x;
+        if (camX > 180f) camX -= 360f; // -180 ~ 180 변환
+
+        //  입력 범위 제한
+        camX = Mathf.Clamp(camX, -45f, 40f);
+
+        float spineZ;
+
+        //  구간별 선형 매핑
+        if (camX <= 0f)
+        {
+            // -45 → +30  /  0 → 0
+            spineZ = Mathf.Lerp(30f, 0f, Mathf.InverseLerp(-45f, 0f, camX));
+            //Debug.Log(spineZ);
+        }
+        else
+        {
+            // 0 → 0  /  40 → -40
+            spineZ = Mathf.Lerp(0f, -40f, Mathf.InverseLerp(0f, 40f, camX));
+            //Debug.Log(spineZ);
+        }
+
+        //  애니메이션 이후 덮어쓰기 (Additive)
+        spine.localRotation =
+            spineBaseLocalRotation * Quaternion.Euler(0, 0, spineZ);
+
+    }
 
     private void Start() {
         // 사용할 컴포넌트들을 가져오기
         playerInput = GetComponent<PlayerInput>();
         playerAnimator = GetComponent<Animator>();
 
-        
+        // Spine 기본 회전 저장
+        spineBaseLocalRotation = spine.localRotation;
     }
    
   
@@ -129,11 +168,17 @@ public class PlayerShooter : MonoBehaviour {
         }
     }
 
+    void LateUpdate()
+    {
+        //카메라x축회전에따른spine01의 z값조정
+        ApplySpineRotationByCamera();
+    }
     // 애니메이터의 IK 갱신
     private void OnAnimatorIK(int layerIndex) {
         // 총의 기준점 gunPivot을 3D 모델의 오른쪽 팔꿈치 위치로 이동
-        gunPivot.position =
-            playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow);
+        gunPivot.position = playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow);
+        //Debug.Log(playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow));
+
 
         // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
         playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
@@ -152,6 +197,8 @@ public class PlayerShooter : MonoBehaviour {
             rightHandMount.position);
         playerAnimator.SetIKRotation(AvatarIKGoal.RightHand,
             rightHandMount.rotation);
+
+        
 
         /*
         //crosshair의위치를총에따라다르게설정

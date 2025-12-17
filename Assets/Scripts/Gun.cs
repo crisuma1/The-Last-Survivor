@@ -51,6 +51,8 @@ public class Gun : MonoBehaviour
     public Vector3 equipLocalScale = Vector3.one;
 
 
+
+
     //프리팹의Transform정보를 총에저장해둠
 #if UNITY_EDITOR
 private void OnValidate()

@@ -3777,6 +3777,8 @@ MonoBehaviour:
   gunPivot: {fileID: 8512681967524257243}
   leftHandMount: {fileID: 4165594031000882792}
   rightHandMount: {fileID: 8314988899316005990}
+  cameraPivot: {fileID: 0}
+  spine: {fileID: 0}
 --- !u!114 &8512681968067611298
 MonoBehaviour:
   m_ObjectHideFlags: 0

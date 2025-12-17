@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
 
    private void OnTriggerEnter(Collider other)
 {
-    Debug.Log("충돌한 오브젝트: " + other.gameObject.name);
+   // Debug.Log("충돌한 오브젝트: " + other.gameObject.name);
 
     // 플레이어는 무시
     if (other.CompareTag("Player")) return;
