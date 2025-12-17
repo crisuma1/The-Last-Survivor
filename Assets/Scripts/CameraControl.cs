@@ -8,7 +8,7 @@ public class CameraControl : MonoBehaviour
     public bool canZoom = true;
     public float sensitivity = 5f;
     public Vector2 cameraLimit = new Vector2(-45, 40);
-    
+
 
     float mouseX;
     float mouseY;
@@ -26,7 +26,22 @@ public class CameraControl : MonoBehaviour
     private float desiredDistance;
     private Vector3 desiredPosition;
     private PlayerHealth playerHealth;
-  
+
+    //마우스우클릭시줌하기위해playerinput할당
+    [SerializeField] private PlayerInput playerInput;
+
+    [Header("FOV Settings")]
+    [SerializeField] float defaultFOV = 60f;
+    [SerializeField] float adsFOV = 40f;
+    [SerializeField] float scopeFOV = 10f;
+    [SerializeField] float fovLerpSpeed = 10f;
+
+    float targetFOV;
+
+
+    [SerializeField] LayerMask normalMask; // 기본
+    [SerializeField] LayerMask scopeMask;  // Player 제외
+
 
 
     // Start is called before the first frame update
@@ -51,8 +66,11 @@ public class CameraControl : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
         }
-      
-        
+
+
+
+        targetFOV = defaultFOV;
+        Camera.main.fieldOfView = defaultFOV;
 
     }
 
@@ -69,11 +87,22 @@ public class CameraControl : MonoBehaviour
         player.parent.rotation = Quaternion.Euler(0, mouseX+180, 0);
     }
 
-
+    private void SetFOV(float fov)
+    {
+        Camera.main.fieldOfView = Mathf.Lerp(
+           Camera.main.fieldOfView,
+            fov,
+            Time.deltaTime * fovLerpSpeed
+        );
+    }
 
     // Update is called once per frame
     void Update()
     {
+        bool isScope = playerInput.currentAimState == AimState.SCope;
+        Camera.main.cullingMask = isScope ? scopeMask : normalMask;
+
+
         if (!playerHealth.dead) //죽었을때카메라회전안하게
         {
             if (Input.GetMouseButtonDown(0))
@@ -128,8 +157,34 @@ public class CameraControl : MonoBehaviour
             UnityEngine.Cursor.visible = true;
         }
 
-       
 
-      
+        switch (playerInput.currentAimState)
+        {
+            case AimState.None:
+                {
+                    targetFOV = defaultFOV;
+                   // Debug.Log("defaultFOV");
+                    break;
+                }
+            case AimState.ADS:
+                {
+                    targetFOV = adsFOV;
+                    //Debug.Log("adsFOV");
+                    break;
+                }
+            case AimState.SCope:
+                {
+                    targetFOV = scopeFOV;
+                    //Debug.Log("scopeFOV");
+                    break;
+                }
+                
+        }
+
+        SetFOV(targetFOV);
+
+
+
+
     }
 }

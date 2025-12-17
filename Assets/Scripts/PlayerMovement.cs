@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             playerRigidbody.velocity = velocity;
 
             playerAnimator.SetTrigger("Jump");
+            
         }
     }
 
