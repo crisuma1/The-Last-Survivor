@@ -19,3 +19,6 @@ MonoBehaviour:
   magCapacity: 25
   timeBetFire: 0.12
   reloadTime: 1.8
+  defaultFOV: 60
+  adsFOV: 40
+  scopeFOV: 30

@@ -30,11 +30,8 @@ public class CameraControl : MonoBehaviour
     //마우스우클릭시줌하기위해playerinput할당
     [SerializeField] private PlayerInput playerInput;
 
-    [Header("FOV Settings")]
-    [SerializeField] float defaultFOV = 60f;
-    [SerializeField] float adsFOV = 40f;
-    [SerializeField] float scopeFOV = 10f;
     [SerializeField] float fovLerpSpeed = 10f;
+
 
     float targetFOV;
 
@@ -42,6 +39,8 @@ public class CameraControl : MonoBehaviour
     [SerializeField] LayerMask normalMask; // 기본
     [SerializeField] LayerMask scopeMask;  // Player 제외
 
+    //FOV값을받기위해참조
+    [SerializeField] PlayerShooter shooter;
 
 
     // Start is called before the first frame update
@@ -69,8 +68,8 @@ public class CameraControl : MonoBehaviour
 
 
 
-        targetFOV = defaultFOV;
-        Camera.main.fieldOfView = defaultFOV;
+        targetFOV = shooter.CurrentDefaultFOV;
+        Camera.main.fieldOfView = shooter.CurrentDefaultFOV;
 
     }
 
@@ -162,19 +161,19 @@ public class CameraControl : MonoBehaviour
         {
             case AimState.None:
                 {
-                    targetFOV = defaultFOV;
-                   // Debug.Log("defaultFOV");
+                    targetFOV = shooter.CurrentDefaultFOV;
+                    // Debug.Log("defaultFOV");
                     break;
                 }
             case AimState.ADS:
                 {
-                    targetFOV = adsFOV;
+                    targetFOV = shooter.CurrentAdsFOV;
                     //Debug.Log("adsFOV");
                     break;
                 }
             case AimState.SCope:
                 {
-                    targetFOV = scopeFOV;
+                    targetFOV = shooter.CurrentScopeFOV;
                     //Debug.Log("scopeFOV");
                     break;
                 }

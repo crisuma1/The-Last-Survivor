@@ -26,6 +26,12 @@ public class PlayerShooter : MonoBehaviour {
     //스파인z값제외한나머지는기본값반영
     private Quaternion spineBaseLocalRotation;
 
+    public float CurrentDefaultFOV ;
+    public float CurrentAdsFOV ;
+    public float CurrentScopeFOV;
+
+
+
     public void Awake()
     {
         //기본총장착
@@ -36,6 +42,11 @@ public class PlayerShooter : MonoBehaviour {
         }
         CurrentGun =OriginalGun;
         Guns.Add(CurrentGun);
+
+        //총의줌정도를데이타에서가져옴
+        CurrentDefaultFOV = CurrentGun.gunData.defaultFOV;
+        CurrentAdsFOV = CurrentGun.gunData.adsFOV;
+        CurrentScopeFOV = CurrentGun.gunData.scopeFOV;
     }
 
 
@@ -83,7 +94,12 @@ public class PlayerShooter : MonoBehaviour {
 
         this.leftHandMount=CurrentGun.LeftHandlePosition;
         this.rightHandMount=CurrentGun.RightHandlePosition;
-    }
+
+        //총의줌정도를데이타에서가져옴
+        CurrentDefaultFOV = CurrentGun.gunData.defaultFOV;
+        CurrentAdsFOV = CurrentGun.gunData.adsFOV;
+        CurrentScopeFOV = CurrentGun.gunData.scopeFOV;
+}
 
 
     private void ApplySpineRotationByCamera()

@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 8724360051818008244}
   - component: {fileID: 3665212313053843795}
   - component: {fileID: 1531688318211359429}
+  - component: {fileID: 3794025886227096089}
   m_Layer: 0
   m_Name: AmmoBox
   m_TagString: Untagged
@@ -193,9 +194,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4222280823211393340}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000001572969, y: -0.69427836, z: -0.000000015173937, w: 0.71970665}
+  m_LocalRotation: {x: 0, y: -0.6942753, z: 0, w: 0.7197096}
   m_LocalPosition: {x: 11.055, y: 0.201, z: -7.511}
-  m_LocalScale: {x: 0.00041074, y: 0.00041074, z: 0.00041074}
+  m_LocalScale: {x: 0.000037275575, y: 0.000048755515, z: 0.00003129259}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7206755003881365677}
@@ -252,3 +253,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemAsset: {fileID: 11400000, guid: a3882c4947de981468d464d1f7f0164f, type: 2}
   quantity: 1
+--- !u!114 &3794025886227096089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4222280823211393340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fe76e00ab1aa042ae4b35061dfe294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemEffectPrefab: {fileID: 2053168479770224450, guid: a219d6370a52b924f9abe0bb6b648da7,
+    type: 3}

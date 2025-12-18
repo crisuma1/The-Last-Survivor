@@ -26275,9 +26275,6 @@ MonoBehaviour:
   minDistance: 1
   smoothSpeed: 20
   playerInput: {fileID: 2189165696339977853}
-  defaultFOV: 60
-  adsFOV: 40
-  scopeFOV: 15
   fovLerpSpeed: 10
   normalMask:
     serializedVersion: 2
@@ -26285,6 +26282,7 @@ MonoBehaviour:
   scopeMask:
     serializedVersion: 2
     m_Bits: 7479
+  shooter: {fileID: 2189165696339977855}
 --- !u!1001 &794762985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38867,21 +38865,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 919816042348507951, guid: bac923fb535b41e44b42189928c1aa03,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.000037275575
-      objectReference: {fileID: 0}
-    - target: {fileID: 919816042348507951, guid: bac923fb535b41e44b42189928c1aa03,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.000048755515
-      objectReference: {fileID: 0}
-    - target: {fileID: 919816042348507951, guid: bac923fb535b41e44b42189928c1aa03,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.00003129259
-      objectReference: {fileID: 0}
-    - target: {fileID: 919816042348507951, guid: bac923fb535b41e44b42189928c1aa03,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5248061
       objectReference: {fileID: 0}
@@ -41327,21 +41310,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Syringe_Metal Variant (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.33844113
-      objectReference: {fileID: 0}
-    - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5274189
-      objectReference: {fileID: 0}
-    - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.4033332
       objectReference: {fileID: 0}
     - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
         type: 3}
@@ -76191,21 +76159,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.33844113
-      objectReference: {fileID: 0}
-    - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5274189
-      objectReference: {fileID: 0}
-    - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.4033332
-      objectReference: {fileID: 0}
-    - target: {fileID: 8513533427534746154, guid: 7fd9d0e4dbe99474a8e1f9da553a3c77,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.1291811
       objectReference: {fileID: 0}
@@ -77377,6 +77330,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9237a6135a68a748bac9cbbfad81237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2189165696339977855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8512681968067611307, guid: 153166fe35c054a7190cb112c92f6d23,
+    type: 3}
+  m_PrefabInstance: {fileID: 865242857312055770}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703177668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a558a9e6e5e01c842a3d56a3e825e54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2321870598519993448 stripped
