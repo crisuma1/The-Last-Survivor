@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3862334835793244716}
   - component: {fileID: 7905837207023359813}
   - component: {fileID: 8448703751114248712}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HandGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2076705896866710455}
   - component: {fileID: 1172068330394877514}
   - component: {fileID: 5427661490667574273}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Kocking Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8699687888864650172}
   - component: {fileID: 2375597239164233533}
   - component: {fileID: 8465689746598956467}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 9153065289229652717}
   - component: {fileID: 3195269960312911023}
   - component: {fileID: 355611827933184879}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StockExtender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,8 @@ GameObject:
   - component: {fileID: 267910615535178688}
   - component: {fileID: 3260689842049214301}
   - component: {fileID: -2034987742388528920}
-  m_Layer: 0
+  - component: {fileID: -14777991048332738}
+  m_Layer: 9
   m_Name: Mayhem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,6 +445,110 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemEffectPrefab: {fileID: 2053168479770224450, guid: a219d6370a52b924f9abe0bb6b648da7,
     type: 3}
+--- !u!120 &-14777991048332738
+LineRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3540749380805879717}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 527027c8baf2f0540be3104a3ec38a99, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.5344828
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    textureScale: {x: 1, y: 1}
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_MaskInteraction: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
+  m_ApplyActiveColorSpace: 1
 --- !u!1 &5170945248629222324
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +560,7 @@ GameObject:
   - component: {fileID: 4545358490580144746}
   - component: {fileID: 6430997928787978356}
   - component: {fileID: 4078332365467786425}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Safety Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +643,7 @@ GameObject:
   - component: {fileID: 7099839730916806393}
   - component: {fileID: 179597298550481269}
   - component: {fileID: 2886052237813111259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SholderStock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +727,7 @@ GameObject:
   - component: {fileID: 3373590793266406318}
   - component: {fileID: 4565724286237582789}
   - component: {fileID: 1206822233181607983}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Nozzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -705,7 +810,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1450259528425798821}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'LeftHandle '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -738,7 +843,7 @@ GameObject:
   - component: {fileID: 8077156205605160928}
   - component: {fileID: 1221083067881169555}
   - component: {fileID: 3997206150416256501}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -823,7 +928,7 @@ GameObject:
   - component: {fileID: 2516723529537974282}
   - component: {fileID: 8859629179437259228}
   - component: {fileID: 4514041483232508385}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +1009,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8435283537996606332}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'RightHandle '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,7 +1042,7 @@ GameObject:
   - component: {fileID: 1343200092075900383}
   - component: {fileID: 5059344491916243954}
   - component: {fileID: 136778671445740202}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1018,7 +1123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5773653394850414445}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'Fire Position '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1034,7 +1139,7 @@ Transform:
   m_GameObject: {fileID: 8133587085587692228}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.24, z: 3.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1051,6 +1156,10 @@ PrefabInstance:
     - target: {fileID: 1000010254994808, guid: 74d744994bc414c37bfda957f1d57118, type: 3}
       propertyPath: m_Name
       value: 'MuzzleFlashEffect '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010254994808, guid: 74d744994bc414c37bfda957f1d57118, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4000011227296186, guid: 74d744994bc414c37bfda957f1d57118, type: 3}
       propertyPath: m_LocalScale.x
@@ -1137,6 +1246,10 @@ PrefabInstance:
     - target: {fileID: 1000013947318026, guid: 8e60b325a019543cbb2e3920522a2e6b, type: 3}
       propertyPath: m_Name
       value: 'ShellEjectEffect '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013947318026, guid: 8e60b325a019543cbb2e3920522a2e6b, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4000011175361746, guid: 8e60b325a019543cbb2e3920522a2e6b, type: 3}
       propertyPath: m_LocalScale.x

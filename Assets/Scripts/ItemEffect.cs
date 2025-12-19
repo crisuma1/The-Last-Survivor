@@ -13,6 +13,8 @@ public class ItemEffect : MonoBehaviour
         Quaternion.identity,
         transform
     );
+     
+
 
         Vector3 parentScale = transform.lossyScale;
         effectInstance.transform.localScale = new Vector3(
@@ -22,5 +24,12 @@ public class ItemEffect : MonoBehaviour
         );
     }
 
- 
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            Destroy( effectInstance );
+        }
+    }
+
 }

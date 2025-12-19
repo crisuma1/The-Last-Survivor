@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour
     public Transform RightHandlePosition;
 
 
-    //장착시 프리팹의 Trasnform값을그대로적용하기위해서 사용
+    //장착시 프리팹의 값을그대로적용하기위해서 사용
     [Header("Prefab Transform")]
     public Vector3 equipLocalPosition;
     public Vector3 equipLocalRotation;
@@ -63,7 +63,6 @@ private void OnValidate()
         equipLocalPosition = transform.localPosition;
         equipLocalRotation = transform.localEulerAngles;
         equipLocalScale    = transform.localScale;
-
         // 변경 사항 저장
         EditorUtility.SetDirty(this);
     }
@@ -91,8 +90,6 @@ private void OnValidate()
         bulletLineRenderer.positionCount = 2;
         // 라인 렌더러를 비활성화
         bulletLineRenderer.enabled = false;
-
-
 
 
     }
@@ -193,7 +190,7 @@ private void OnValidate()
 
         // 총알 생성 시 발사 방향에 맞게 회전 설정
         // 총알이 발사될 위치를 계산(반동때문에앞으로)
-        Vector3 spawnPos = fireTransform.position + fireTransform.forward * 0.5f;
+        Vector3 spawnPos = fireTransform.position + fireTransform.forward * 0.1f;
         Vector3 shootDir = (hitPosition - spawnPos).normalized;
         Instantiate(bullet, spawnPos, Quaternion.LookRotation(shootDir));
 
