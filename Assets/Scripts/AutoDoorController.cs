@@ -9,7 +9,7 @@ public class AutoDoorController : MonoBehaviour
     public GameObject monsterBlock;
     public TMP_InputField passwordInput;
     public GameObject passwordUI;
-
+   
     public string correctPassword = "1234";
 
     private Vector3 leftClosedPos;
@@ -18,13 +18,18 @@ public class AutoDoorController : MonoBehaviour
     public Vector3 rightOpenOffset = new Vector3(2f, 0, 0);
     public float moveSpeed = 2f;
     public float openTime = 3f; // 문 열리고 유지되는 시간
+    private AutoDoorTrigger autoDoorTrigger;
 
     private bool isMoving = false;
+    private CameraControl cameraControl;
 
     void Start()
     {
         leftClosedPos = leftDoor.position;
         rightClosedPos = rightDoor.position;
+        cameraControl = Camera.main.GetComponentInParent<CameraControl>();
+
+        autoDoorTrigger = GetComponent<AutoDoorTrigger>();
     }
 
     public void CheckPassword()
@@ -33,12 +38,24 @@ public class AutoDoorController : MonoBehaviour
         {
             StartCoroutine(OpenAndCloseDoor());
             passwordUI.SetActive(false);
+            Time.timeScale = 1f;
+            cameraControl.UnLockCamera();
+            autoDoorTrigger.isActivate = false;
         }
         else
         {
             Debug.Log("틀린 암호");
         }
     }
+
+    public void OnClickBack()
+    {
+        
+        passwordUI.SetActive(false);
+        cameraControl.UnLockCamera();
+        Time.timeScale = 1f;
+    }
+
 
     IEnumerator OpenAndCloseDoor()
     {
@@ -59,6 +76,7 @@ public class AutoDoorController : MonoBehaviour
         yield return new WaitForSeconds(openTime);
 
         // 문 닫기
+        /*
         t = 0f;
         while (t < 1f)
         {
@@ -67,5 +85,6 @@ public class AutoDoorController : MonoBehaviour
             rightDoor.position = Vector3.Lerp(rightOpenPos, rightClosedPos, t);
             yield return null;
         }
+        */
     }
 }

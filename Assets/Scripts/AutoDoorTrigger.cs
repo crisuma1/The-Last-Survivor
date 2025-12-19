@@ -9,36 +9,54 @@ public class AutoDoorTrigger : MonoBehaviour
     public float interactionDistance = 3f;
 
     private bool isPlayerNear = false;
+    private CameraControl cameraControl;
 
+    public bool isActivate = true; //비밀번호맞추면 다시지나가도안뜨게
+
+
+    void Start()
+    {
+  
+        cameraControl = Camera.main.GetComponentInParent<CameraControl>();
+
+    }
     void Update()
     {
         if (isPlayerNear && Input.GetKeyDown(KeyCode.F))
         {
             passwordUI.SetActive(true);
             fKeyUI.SetActive(false);
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-            UnityEngine.Cursor.visible = true;
+            Time.timeScale = 0f;
+
+            cameraControl.LockCamera();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(isActivate)
         {
-            isPlayerNear = true;
-            fKeyUI.SetActive(true);
+            if (other.CompareTag("Player"))
+            {
+                isPlayerNear = true;
+                fKeyUI.SetActive(true);
+            }
         }
+     
     }
 
+    
+
     void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerNear = false;
-            fKeyUI.SetActive(false);
-            passwordUI.SetActive(false);
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-            UnityEngine.Cursor.visible = false;
-        }
+    {       
+            if (other.CompareTag("Player"))
+            {
+                isPlayerNear = false;
+                fKeyUI.SetActive(false);
+                passwordUI.SetActive(false);
+
+            }
+
     }
+    
 }

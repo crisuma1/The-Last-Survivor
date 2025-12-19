@@ -42,6 +42,8 @@ public class CameraControl : MonoBehaviour
     //FOV값을받기위해참조
     [SerializeField] PlayerShooter shooter;
 
+    //pauseManger나 UI활성화일때카메라안돌아가게
+    private bool canLook = true;
 
     // Start is called before the first frame update
     void Start()
@@ -95,9 +97,29 @@ public class CameraControl : MonoBehaviour
         );
     }
 
+    //Esc나문제풀때카메라작동안하게
+    public void LockCamera()
+    {
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+        canLook = false;
+    }
+
+    public void UnLockCamera()
+    {
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+        canLook = true;
+    }
+    
+
+
+
     // Update is called once per frame
     void Update()
     {
+        if (!canLook) return; //카메라잠금이면 아예작동안하게
+
         bool isScope = playerInput.currentAimState == AimState.SCope;
         Camera.main.cullingMask = isScope ? scopeMask : normalMask;
 

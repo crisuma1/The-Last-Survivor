@@ -19,7 +19,7 @@ public class PauseManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
         cameraControl = Camera.main.GetComponentInParent<CameraControl>();
-
+        
     }
 
     void Update()
@@ -34,10 +34,8 @@ public class PauseManager : MonoBehaviour
 
     void PauseGame()
     {
-        cameraControl.enabled = false;
-        //마우스 커서 보이기
-        UnityEngine.Cursor.lockState = CursorLockMode.None;
-        UnityEngine.Cursor.visible = true;
+      cameraControl.LockCamera();
+      
 
         Time.timeScale = 0f;
         isPaused = true;
@@ -49,14 +47,14 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        cameraControl.enabled = true;
+       
         Time.timeScale = 1f;
         isPaused = false;
         pausePanel.SetActive(false);
 
-        //마우스 커서 숨기기
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+        cameraControl.UnLockCamera();
+      
+
         isInfoShown = false;
     }
 
