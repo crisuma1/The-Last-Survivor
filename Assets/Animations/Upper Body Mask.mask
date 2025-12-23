@@ -7,5 +7,73 @@ AvatarMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Upper Body Mask
-  m_Mask: 00000000010000000000000000000000000000000100000001000000010000000100000000000000000000000100000001000000
-  m_Elements: []
+  m_Mask: 01000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: CATRigHub001
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigLArmCollarbone
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigLArmCollarbone/CATRigLArm1
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigLArmCollarbone/CATRigLArm1/CATRigLArm2
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigLArmCollarbone/CATRigLArm1/CATRigLArm2/CATRigLArmPalm
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigRArmCollarbone
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigRArmCollarbone/CATRigRArm1
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigRArmCollarbone/CATRigRArm1/CATRigRArm2
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigRArmCollarbone/CATRigRArm1/CATRigRArm2/CATRigRArmPalm
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigSpine
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigSpine/CATRigHub003
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigSpine/CATRigHub003/CATRigHub003Bone001
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigSpine/CATRigHub003/CATRigHub003Bone001/Lower_teeth_mesh
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigSpine/CATRigHub003/Eyes_mesh
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigHub001Bone001/CATRigSpine1/CATRigSpine2/CATRigHub002/CATRigSpine/CATRigHub003/Upper_teeth_mesh
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigLLeg1
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigLLeg1/CATRigLLeg2
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigLLeg1/CATRigLLeg2/CATRigLLegAnkle
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigRLeg1
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigRLeg1/CATRigRLeg2
+    m_Weight: 1
+  - m_Path: CATRigHub001/CATRigRLeg1/CATRigRLeg2/CATRigRLegAnkle
+    m_Weight: 1
+  - m_Path: CATRigLLegPlatform
+    m_Weight: 1
+  - m_Path: CATRigRLegPlatform
+    m_Weight: 1
+  - m_Path: Character
+    m_Weight: 1
+  - m_Path: Character/Body_mesh
+    m_Weight: 1
+  - m_Path: Character/Clutches_mesh
+    m_Weight: 1
+  - m_Path: Character/Horns_mesh
+    m_Weight: 1
+  - m_Path: Character/Thorns_mesh
+    m_Weight: 1
+  - m_Path: Character001
+    m_Weight: 1
