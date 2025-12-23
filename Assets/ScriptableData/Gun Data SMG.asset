@@ -22,3 +22,4 @@ MonoBehaviour:
   defaultFOV: 60
   adsFOV: 40
   scopeFOV: 30
+  recoilTriggerName: GunplayRifle

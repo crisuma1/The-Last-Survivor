@@ -17,5 +17,5 @@ public class GunData : ScriptableObject
     public float defaultFOV = 60f; //기본줌
     public float adsFOV = 40f; //견착줌
     public float scopeFOV = 10f; //확대줌
-   
+    public string recoilTriggerName; //총마다다른반동애니메이션의이름
 }

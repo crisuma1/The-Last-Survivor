@@ -75884,6 +75884,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8512681967524257240, guid: 153166fe35c054a7190cb112c92f6d23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8512681967524257243, guid: 153166fe35c054a7190cb112c92f6d23,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -76115,6 +76120,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8512681968060334016, guid: 153166fe35c054a7190cb112c92f6d23,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8512681968067578880, guid: 153166fe35c054a7190cb112c92f6d23,
         type: 3}
       propertyPath: m_Name
@@ -76124,6 +76134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: startingHealth
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512681968067611305, guid: 153166fe35c054a7190cb112c92f6d23,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8512681968067611305, guid: 153166fe35c054a7190cb112c92f6d23,
         type: 3}

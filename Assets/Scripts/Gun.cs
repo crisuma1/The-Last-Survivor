@@ -50,6 +50,8 @@ public class Gun : MonoBehaviour
     public Vector3 equipLocalRotation;
     public Vector3 equipLocalScale = Vector3.one;
 
+  
+
 
 
 
@@ -73,6 +75,8 @@ private void OnValidate()
     {
 
         // 사용할 컴포넌트들의 참조를 가져오기
+
+       
 
         if (gunAudioPlayer == null)
         {
@@ -109,7 +113,7 @@ private void OnValidate()
     }
 
 
-
+    
 
     private void OnEnable()
     {
@@ -130,18 +134,21 @@ private void OnValidate()
 
 
     // 발사 시도
-    public void Fire()
+    public bool Fire()
     {
         //  UI 위에 마우스가 올라가 있으면 발사 금지
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
+        if (EventSystem.current != null &&
+        EventSystem.current.IsPointerOverGameObject())
+            return false;
 
-        // 현재 상태가 발사 가능 && 쿨타임 지남
-        if (state == State.Ready && Time.time >= lastFireTime + gunData.timeBetFire)
-        {
-            lastFireTime = Time.time;
-            Shot(); // 발사 처리
-        }
+
+        if (state != State.Ready) return false;
+        if (Time.time < lastFireTime + gunData.timeBetFire) return false;
+
+
+        lastFireTime = Time.time;
+        Shot();
+        return true;
     }
 
     // 실제 발사 처리
@@ -211,6 +218,7 @@ private void OnValidate()
     // 발사 이펙트와 소리를 재생하고 총알 궤적을 그린다
     private IEnumerator ShotEffect(Vector3 hitPosition)
     {
+
         // 총구 화염 효과 재생
         muzzleFlashEffect.Play();
         // 탄피 배출 효과 재생

@@ -19,3 +19,7 @@ MonoBehaviour:
   magCapacity: 13
   timeBetFire: 1
   reloadTime: 3
+  defaultFOV: 60
+  adsFOV: 40
+  scopeFOV: 10
+  recoilTriggerName: GunplaySniper
