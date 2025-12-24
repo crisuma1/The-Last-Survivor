@@ -162,10 +162,26 @@ public class PlayerShooter : MonoBehaviour {
             // 발사 입력 감지시 총 발사
             if(CurrentGun.Fire())
             {
-                playerAnimator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
-                //Debug.Log("shot");
+                if(playerInput.currentFireState == FireState.Single|| CurrentGun.gunData.GunState == FireState.Single)
+                {
+                    playerAnimator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
+                    Debug.Log("shot");
+
+                
+
+                }
+                if (playerInput.currentFireState == FireState.Automatic && CurrentGun.gunData.GunState == FireState.Automatic)
+                {
+                    playerAnimator.SetBool("Automatic", true);
+                    Debug.Log("Auto");
+                }
+                
+
             }
+ 
         }
+       
+
         else if (playerInput.reload)
         {
             // 재장전 입력 감지시 재장전
@@ -175,7 +191,13 @@ public class PlayerShooter : MonoBehaviour {
                 playerAnimator.SetTrigger("Reload");
             }
         }
+        else
+        {
+            //총안쏠때연발해제
+            playerAnimator.SetBool("Automatic", false);
+        }
 
+      
         // 남은 탄약 UI를 갱신
         UpdateUI();
     }

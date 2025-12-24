@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable/GunData", fileName = "Gun Data")]
 public class GunData : ScriptableObject
 {
+    public FireState GunState; //단발총인지연발총인지구분
     public AudioClip shotClip; // 발사 소리
     public AudioClip reloadClip; // 재장전 소리
 

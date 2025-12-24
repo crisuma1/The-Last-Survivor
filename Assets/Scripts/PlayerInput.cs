@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using UnityEngine;
 
 // 플레이어 캐릭터를 조작하기 위한 사용자 입력을 감지
@@ -10,6 +11,12 @@ public enum AimState
     None,
     ADS,
     SCope
+}
+
+public enum FireState
+{
+    Single,
+    Automatic
 }
 
 
@@ -24,6 +31,8 @@ public class PlayerInput : MonoBehaviour
     public float horizontalmove { get; private set; } // 감지된 움직임 입력값
     public float verticalmove { get; private set; } // 감지된 회전 입력값
     public bool fire { get; private set; } // 감지된 발사 입력값
+
+
     public bool reload { get; private set; } // 감지된 재장전 입력값
 
     public bool jumpPressed { get; private set; }
@@ -39,6 +48,10 @@ public class PlayerInput : MonoBehaviour
     //우클릭누르는중인지
     bool isRightHeld =false;
 
+    //단발연발구분해서 애니따로나오게
+    public FireState currentFireState = FireState.Single;
+    private float SingleToAutomaticGap = 0.1f; //단발에서연발로넘어가는데누르는시간갭
+    private float fireButtonDownTime = 1f; //총입력처음누른시간
 
     private void Awake()
     {
@@ -67,6 +80,35 @@ public class PlayerInput : MonoBehaviour
         verticalmove = Input.GetAxis(moveVerticalName);
         // fire에 관한 입력 감지
         fire = Input.GetButton(fireButtonName);
+
+
+        //단발연발구분용로직
+        // 버튼 처음 눌렀을 때
+        if (Input.GetButtonDown(fireButtonName))
+        {
+            fireButtonDownTime = Time.time;
+            currentFireState = FireState.Single;
+        }
+
+        // 누르고 있는 동안
+        if (fire)
+        {
+            if (currentFireState == FireState.Single &&
+                Time.time - fireButtonDownTime >= SingleToAutomaticGap)
+            {
+                currentFireState = FireState.Automatic;
+            }
+        }
+
+        // 버튼을 떼면 리셋
+        if (Input.GetButtonUp(fireButtonName))
+        {
+            currentFireState = FireState.Single;
+        }
+
+
+
+
         // reload에 관한 입력 감지
         reload = Input.GetButtonDown(reloadButtonName);
 
