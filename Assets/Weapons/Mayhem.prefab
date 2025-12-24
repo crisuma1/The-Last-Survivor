@@ -364,8 +364,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3540749380805879717}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.16034056, y: -0.6602807, z: -0.6938284, w: -0.23858419}
-  m_LocalPosition: {x: 0.181, y: 0.13, z: 0.16}
+  m_LocalRotation: {x: 0.42488813, y: 0.5623652, z: 0.5529894, w: 0.44431764}
+  m_LocalPosition: {x: 0.547, y: -0.141, z: 0.111}
   m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -385,7 +385,7 @@ Transform:
   - {fileID: 9153065289229652717}
   - {fileID: 2516723529537974282}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -57.112, y: 81.886, z: -268.5}
+  m_LocalEulerAnglesHint: {x: -14.146, y: 89.62, z: 88.384}
 --- !u!114 &267910615535178688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,8 +407,8 @@ MonoBehaviour:
   magAmmo: 0
   LeftHandlePosition: {fileID: 1450259528425798821}
   RightHandlePosition: {fileID: 8435283537996606332}
-  equipLocalPosition: {x: 0.181, y: 0.13, z: 0.16}
-  equipLocalRotation: {x: 302.888, y: 81.885994, z: 91.499985}
+  equipLocalPosition: {x: 0.547, y: -0.141, z: 0.111}
+  equipLocalRotation: {x: 345.854, y: 89.62, z: 88.38401}
   equipLocalScale: {x: 0.19, y: 0.19, z: 0.19}
 --- !u!65 &3260689842049214301
 BoxCollider:

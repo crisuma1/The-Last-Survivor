@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 89508d09b99b98d4fa658ac1c2319503
+guid: 100c038ddc91e0d44872837c7c581cce
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: SniperRecouncile
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 63
+      lastFrame: 46
       wrapMode: 0
       orientationOffsetY: -45
       level: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: da8d3fafd9e591b46a1183286e92455c
+guid: ad080ccc5d1d44246804c64f8203ed86
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: gungogogogo
+      name: sNIPERRECON
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 6
+      lastFrame: 11
       wrapMode: 0
       orientationOffsetY: -45
       level: 0

@@ -197,19 +197,33 @@ public class PlayerShooter : MonoBehaviour {
     // 애니메이터의 IK 갱신
     private void OnAnimatorIK(int layerIndex) {
         // 총의 기준점 gunPivot을 3D 모델의 오른쪽 팔꿈치 위치로 이동
-        // gunPivot.position = playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow);
+
+        // 현재 재생 중인 애니메이션 상태
+       // AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(1);
+
+        //bool isSniperRecoil = stateInfo.IsName("GunplaySniper");
+
+        gunPivot.position = playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow);
         //Debug.Log(playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow));
 
 
         // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
 
-        //playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
-        //playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
+       // float leftHandIKWeight = isSniperRecoil ? 0f : 1f;
 
-        //playerAnimator.SetIKPosition(AvatarIKGoal.LeftHand,
-        //    leftHandMount.position);
-        //playerAnimator.SetIKRotation(AvatarIKGoal.LeftHand,
-        //    leftHandMount.rotation);
+        playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+        playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+
+      
+            playerAnimator.SetIKPosition(
+                AvatarIKGoal.LeftHand,
+                leftHandMount.position
+            );
+            playerAnimator.SetIKRotation(
+                AvatarIKGoal.LeftHand,
+                leftHandMount.rotation
+            );
+      
 
 
 
