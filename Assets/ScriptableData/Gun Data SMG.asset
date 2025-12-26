@@ -24,3 +24,6 @@ MonoBehaviour:
   adsFOV: 40
   scopeFOV: 30
   recoilTriggerName: GunplayRifle
+  scopeShakeStrength: 5
+  scopeShakeDuration: 0.08
+  scopeShakeFrequency: 9

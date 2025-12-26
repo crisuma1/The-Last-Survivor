@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb3864f76dc458fbe03c34ce5b1f352, type: 3}
   m_Name: Gun Data Sniper
   m_EditorClassIdentifier: 
+  GunState: 0
   shotClip: {fileID: 8300000, guid: b82a66dab749415458d1f6600c997095, type: 3}
   reloadClip: {fileID: 8300000, guid: 9eca29ee7f8209e419470fcd586aec21, type: 3}
   damage: 70
@@ -20,6 +21,9 @@ MonoBehaviour:
   timeBetFire: 1
   reloadTime: 3
   defaultFOV: 60
-  adsFOV: 40
+  adsFOV: 20
   scopeFOV: 10
   recoilTriggerName: GunplaySniper
+  scopeShakeStrength: 30
+  scopeShakeDuration: 0.18
+  scopeShakeFrequency: 4

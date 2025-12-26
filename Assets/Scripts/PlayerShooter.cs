@@ -31,7 +31,7 @@ public class PlayerShooter : MonoBehaviour {
     public float CurrentAdsFOV ;
     public float CurrentScopeFOV;
 
-
+    public static event Action<GunData, AimState> OnFire;
 
     public void Awake()
     {
@@ -165,7 +165,7 @@ public class PlayerShooter : MonoBehaviour {
                 if(playerInput.currentFireState == FireState.Single|| CurrentGun.gunData.GunState == FireState.Single)
                 {
                     playerAnimator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
-                    Debug.Log("shot");
+                   // Debug.Log("shot");
 
                 
 
@@ -173,9 +173,13 @@ public class PlayerShooter : MonoBehaviour {
                 if (playerInput.currentFireState == FireState.Automatic && CurrentGun.gunData.GunState == FireState.Automatic)
                 {
                     playerAnimator.SetBool("Automatic", true);
-                    Debug.Log("Auto");
+                   // Debug.Log("Auto");
                 }
-                
+
+                //스코프상태일때카메라반동
+
+                OnFire?.Invoke(CurrentGun.gunData, playerInput.currentAimState);
+ 
 
             }
  

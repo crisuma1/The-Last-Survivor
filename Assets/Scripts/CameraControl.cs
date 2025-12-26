@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class CameraControl : MonoBehaviour
 {
@@ -44,6 +45,26 @@ public class CameraControl : MonoBehaviour
 
     //pauseManger나 UI활성화일때카메라안돌아가게
     private bool canLook = true;
+
+
+    //총쏠때카메라확대되는이벤트수신
+    private void OnEnable()
+    {
+        PlayerShooter.OnFire += HandleFire;
+    }
+
+    private void OnDisable()
+    {
+        PlayerShooter.OnFire -= HandleFire;
+    }
+
+    void HandleFire(GunData data,AimState aim)
+    {
+        if (aim==AimState.SCope)
+        {
+            CameraScopeShake(data);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -111,7 +132,37 @@ public class CameraControl : MonoBehaviour
         UnityEngine.Cursor.visible = false;
         canLook = true;
     }
-    
+
+
+
+    Coroutine shakeRoutine;
+    public void CameraScopeShake(GunData gunData)
+    {
+        if(shakeRoutine!= null)
+        {
+            StopCoroutine(shakeRoutine);
+        }
+
+        shakeRoutine=StartCoroutine(ScopeShakeRoutine(gunData));
+           
+    }
+    IEnumerator ScopeShakeRoutine(GunData gunData)
+    {
+        float time = 0f;
+        Vector3 origin = transform.localPosition;
+
+        while(time<gunData.scopeShakeDuration)
+        {
+            float x = Mathf.PerlinNoise(Time.time * gunData.scopeShakeFrequency, 0) - 0.5f;
+            float y = Mathf.PerlinNoise(0, Time.time * gunData.scopeShakeFrequency) - 0.5f;
+
+            transform.localPosition = origin + new Vector3(x, y, 0) * gunData.scopeShakeStrength;
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        //transform.localPosition = origin;
+    }
 
 
 

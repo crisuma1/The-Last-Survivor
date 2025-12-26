@@ -19,4 +19,8 @@ public class GunData : ScriptableObject
     public float adsFOV = 40f; //견착줌
     public float scopeFOV = 10f; //확대줌
     public string recoilTriggerName; //총마다다른반동애니메이션의이름
+    public float scopeShakeStrength;//스코프상태일때카메라흔들림강도
+    public float scopeShakeDuration;//스코프상태일때카메라흔들림시간
+    public float scopeShakeFrequency;//스코프상태일때카메라흔들림횟수
+
 }
