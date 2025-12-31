@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
-using System;
-using UnityEngine.Rendering.PostProcessing;
-using GLTFast.Schema;
+using UnityEngine;
 
 // 주어진 Gun 오브젝트를 쏘거나 재장전
 // 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
-public class PlayerShooter : MonoBehaviour {
+public class PlayerShooter : MonoBehaviour
+{
     public Gun OriginalGun;// 사용할 기본총
     [HideInInspector] public Gun CurrentGun; // 현재사용중인총
     public Transform gunPivot; // 총 배치의 기준점
@@ -15,7 +14,7 @@ public class PlayerShooter : MonoBehaviour {
 
     private PlayerInput playerInput; // 플레이어의 입력
     private Animator playerAnimator; // 애니메이터 컴포넌트
-    
+
     private List<Gun> Guns = new List<Gun>(); //여러종류의 총종류를담을 리스트
     private int currentGunIndex = 0; //현재활성화된총의인덱스
     private bool crosshairInitialized = false; //총의조준선활성화여부
@@ -27,8 +26,8 @@ public class PlayerShooter : MonoBehaviour {
     //스파인z값제외한나머지는기본값반영
     private Quaternion spineBaseLocalRotation;
 
-    public float CurrentDefaultFOV ;
-    public float CurrentAdsFOV ;
+    public float CurrentDefaultFOV;
+    public float CurrentAdsFOV;
     public float CurrentScopeFOV;
 
     public static event Action<GunData, AimState> OnFire;
@@ -41,7 +40,7 @@ public class PlayerShooter : MonoBehaviour {
             Debug.LogError("OriginalGun이 할당되지 않았습니다.");
             return;
         }
-        CurrentGun =OriginalGun;
+        CurrentGun = OriginalGun;
         Guns.Add(CurrentGun);
 
         //총의줌정도를데이타에서가져옴
@@ -59,7 +58,7 @@ public class PlayerShooter : MonoBehaviour {
         {
             return;
         }
-        Guns.Add(gun);    
+        Guns.Add(gun);
     }
 
     //플레이어input을받아서키입력시총교체
@@ -85,22 +84,22 @@ public class PlayerShooter : MonoBehaviour {
         gun.transform.SetParent(gunPivot, false);
 
         //기본총이아닐경우 프리팹의 Trasnform값 적용
-        if(currentGunIndex !=0)
+        if (currentGunIndex != 0)
         {
             gun.transform.localPosition = gun.equipLocalPosition;
             gun.transform.localRotation = Quaternion.Euler(gun.equipLocalRotation);
             gun.transform.localScale = gun.equipLocalScale;
         }
-       
 
-        this.leftHandMount=CurrentGun.LeftHandlePosition;
-        this.rightHandMount=CurrentGun.RightHandlePosition;
+
+        this.leftHandMount = CurrentGun.LeftHandlePosition;
+        this.rightHandMount = CurrentGun.RightHandlePosition;
 
         //총의줌정도를데이타에서가져옴
         CurrentDefaultFOV = CurrentGun.gunData.defaultFOV;
         CurrentAdsFOV = CurrentGun.gunData.adsFOV;
         CurrentScopeFOV = CurrentGun.gunData.scopeFOV;
-}
+    }
 
 
     private void ApplySpineRotationByCamera()
@@ -134,7 +133,8 @@ public class PlayerShooter : MonoBehaviour {
 
     }
 
-    private void Start() {
+    private void Start()
+    {
         // 사용할 컴포넌트들을 가져오기
         playerInput = GetComponent<PlayerInput>();
         playerAnimator = GetComponent<Animator>();
@@ -142,49 +142,52 @@ public class PlayerShooter : MonoBehaviour {
         // Spine 기본 회전 저장
         spineBaseLocalRotation = spine.localRotation;
     }
-   
-  
 
-    private void OnEnable() {
+
+
+    private void OnEnable()
+    {
         // 슈터가 활성화될 때 총도 함께 활성화
         CurrentGun.gameObject.SetActive(true);
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         // 슈터가 비활성화될 때 총도 함께 비활성화
         CurrentGun.gameObject.SetActive(false);
     }
 
-    private void Update() {
+    private void Update()
+    {
         // 입력을 감지하고 총 발사하거나 재장전
         if (playerInput.fire)
         {
             // 발사 입력 감지시 총 발사
-            if(CurrentGun.Fire())
+            if (CurrentGun.Fire())
             {
-                if(playerInput.currentFireState == FireState.Single|| CurrentGun.gunData.GunState == FireState.Single)
+                if (playerInput.currentFireState == FireState.Single || CurrentGun.gunData.GunState == FireState.Single)
                 {
                     playerAnimator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
-                   // Debug.Log("shot");
+                    // Debug.Log("shot");
 
-                
+
 
                 }
                 if (playerInput.currentFireState == FireState.Automatic && CurrentGun.gunData.GunState == FireState.Automatic)
                 {
                     playerAnimator.SetBool("Automatic", true);
-                   // Debug.Log("Auto");
+                    // Debug.Log("Auto");
                 }
 
                 //스코프상태일때카메라반동
 
                 OnFire?.Invoke(CurrentGun.gunData, playerInput.currentAimState);
- 
+
 
             }
- 
+
         }
-       
+
 
         else if (playerInput.reload)
         {
@@ -201,13 +204,14 @@ public class PlayerShooter : MonoBehaviour {
             playerAnimator.SetBool("Automatic", false);
         }
 
-      
+
         // 남은 탄약 UI를 갱신
         UpdateUI();
     }
 
     // 탄약 UI 갱신
-    private void UpdateUI() {
+    private void UpdateUI()
+    {
         if (CurrentGun != null && GlobalUIManager.instance != null)
         {
             // UI 매니저의 탄약 텍스트에 탄창의 탄약과 남은 전체 탄약을 표시
@@ -221,11 +225,12 @@ public class PlayerShooter : MonoBehaviour {
         ApplySpineRotationByCamera();
     }
     // 애니메이터의 IK 갱신
-    private void OnAnimatorIK(int layerIndex) {
+    private void OnAnimatorIK(int layerIndex)
+    {
         // 총의 기준점 gunPivot을 3D 모델의 오른쪽 팔꿈치 위치로 이동
 
         // 현재 재생 중인 애니메이션 상태
-       // AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(1);
+        // AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(1);
 
         //bool isSniperRecoil = stateInfo.IsName("GunplaySniper");
 
@@ -235,38 +240,40 @@ public class PlayerShooter : MonoBehaviour {
 
         // IK를 사용하여 왼손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
 
-       // float leftHandIKWeight = isSniperRecoil ? 0f : 1f;
+        // float leftHandIKWeight = isSniperRecoil ? 0f : 1f;
+
+
 
         playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
         playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
 
-      
-            playerAnimator.SetIKPosition(
-                AvatarIKGoal.LeftHand,
-                leftHandMount.position
-            );
-            playerAnimator.SetIKRotation(
-                AvatarIKGoal.LeftHand,
-                leftHandMount.rotation
-            );
-      
+
+        playerAnimator.SetIKPosition(
+            AvatarIKGoal.LeftHand,
+            leftHandMount.position
+        );
+        playerAnimator.SetIKRotation(
+            AvatarIKGoal.LeftHand,
+            leftHandMount.rotation
+        );
 
 
-
+        //////////////////////////////////
 
 
 
         /*
-   //IK를 사용하여 오른손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
-   playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
-   playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
 
-   playerAnimator.SetIKPosition(AvatarIKGoal.RightHand,
-       rightHandMount.position);
-   playerAnimator.SetIKRotation(AvatarIKGoal.RightHand,
-       rightHandMount.rotation);
-*/
+  //IK를 사용하여 오른손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
+  playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
+  playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
 
+  playerAnimator.SetIKPosition(AvatarIKGoal.RightHand,
+      rightHandMount.position);
+  playerAnimator.SetIKRotation(AvatarIKGoal.RightHand,
+      rightHandMount.rotation);
+
+        */
 
         /*
         //crosshair의위치를총에따라다르게설정

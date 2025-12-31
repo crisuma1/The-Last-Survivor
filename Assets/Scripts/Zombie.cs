@@ -131,13 +131,15 @@ public class Zombie : LivingEntity {
 
             // 피격 효과음 재생
             zombieAudioPlayer.PlayOneShot(hitSound);
+
+            // LivingEntity의 OnDamage()를 실행하여 데미지 적용
+            base.OnDamage(damage, hitPoint, hitNormal);
+
+            // 맞는 애니메이션 재생
+            zombieAnimator.SetTrigger("GetHit");
         }
 
-        // LivingEntity의 OnDamage()를 실행하여 데미지 적용
-        base.OnDamage(damage, hitPoint, hitNormal);
-       
-        // 맞는 애니메이션 재생
-        zombieAnimator.SetTrigger("GetHit");
+  
     }
 
     // 사망 처리
