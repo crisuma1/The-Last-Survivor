@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.AI; // AI, 내비게이션 시스템 관련 코드를 가져오기
 
 // 좀비 AI 구현
-public class Zombie : LivingEntity {
+public class Zombie : LivingEntity
+{
     public LayerMask whatIsTarget; // 추적 대상 레이어
 
     private LivingEntity targetEntity; // 추적할 대상
@@ -21,6 +22,10 @@ public class Zombie : LivingEntity {
     private float timeBetAttack = 2f; // 공격 간격
     private float lastAttackTime; // 마지막 공격 시점
 
+    private bool isHitBoxActive; //히트박스가켜져있는지
+    [SerializeField] private ZombieLeftHandHitbox Hitbox;//좀비공격히트박스
+    private bool hasDamaged; // 이번 공격에서 데미지 줬는지
+
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
     private bool hasTarget
     {
@@ -37,7 +42,8 @@ public class Zombie : LivingEntity {
         }
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         // 게임 오브젝트로부터 사용할 컴포넌트들을 가져오기
         navMeshAgent = GetComponent<NavMeshAgent>();
         zombieAnimator = GetComponent<Animator>();
@@ -50,7 +56,8 @@ public class Zombie : LivingEntity {
 
 
     // 좀비 AI의 초기 스펙을 결정하는 셋업 메서드
-    public void Setup(ZombieData zombieData) {
+    public void Setup(ZombieData zombieData)
+    {
         // 체력 설정
         startingHealth = zombieData.health;
         health = zombieData.health;
@@ -62,18 +69,21 @@ public class Zombie : LivingEntity {
         zombieRenderer.material.color = zombieData.skinColor;
     }
 
-    private void Start() {
+    private void Start()
+    {
         // 게임 오브젝트 활성화와 동시에 AI의 추적 루틴 시작
         StartCoroutine(UpdatePath());
     }
 
-    private void Update() {
+    private void Update()
+    {
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
         zombieAnimator.SetBool("HasTarget", hasTarget);
     }
 
     // 주기적으로 추적할 대상의 위치를 찾아 경로를 갱신
-    private IEnumerator UpdatePath() {
+    private IEnumerator UpdatePath()
+    {
         // 살아있는 동안 무한 루프
         while (!dead)
         {
@@ -119,7 +129,8 @@ public class Zombie : LivingEntity {
 
     // 데미지를 입었을때 실행할 처리
     public override void OnDamage(float damage,
-        Vector3 hitPoint, Vector3 hitNormal) {
+        Vector3 hitPoint, Vector3 hitNormal)
+    {
         // 아직 사망하지 않은 경우에만 피격 효과 재생
         if (!dead)
         {
@@ -139,11 +150,12 @@ public class Zombie : LivingEntity {
             zombieAnimator.SetTrigger("GetHit");
         }
 
-  
+
     }
 
     // 사망 처리
-    public override void Die() {
+    public override void Die()
+    {
         // LivingEntity의 Die()를 실행하여 기본 사망 처리 실행
         base.Die();
 
@@ -164,6 +176,20 @@ public class Zombie : LivingEntity {
         zombieAudioPlayer.PlayOneShot(deathSound);
     }
 
+    private void HitBoxOn()
+    {
+        isHitBoxActive = true;
+        hasDamaged = false;
+        Hitbox.gameObject.SetActive(true);
+    }
+
+    private void HitBoxOff()
+    {
+        isHitBoxActive = false;
+        Hitbox.gameObject.SetActive(false);
+    }
+
+
     private void OnTriggerStay(Collider other)
     {
         // 좀비가 사망하지 않았고, 공격 대기 시간이 지났다면
@@ -178,15 +204,21 @@ public class Zombie : LivingEntity {
                 // 최근 공격 시간을 갱신
                 lastAttackTime = Time.time;
 
-                // 상대방의 피격 위치와 피격 방향을 계산
-                Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitNormal = (transform.position - other.transform.position).normalized;
-
                 // 공격 애니메이션 재생
                 zombieAnimator.SetTrigger("Attack");
 
                 // 공격 실행
-                attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                if (isHitBoxActive && Hitbox.isHit == true && !hasDamaged)
+                {
+                    hasDamaged = true;
+
+                    Debug.Log("Damgedgogo");
+                    // 상대방의 피격 위치와 피격 방향을 계산
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Vector3 hitNormal = (transform.position - other.transform.position).normalized;
+                    attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                }
+
             }
         }
     }
