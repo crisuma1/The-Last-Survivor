@@ -22,9 +22,7 @@ public class Zombie : LivingEntity
     private float timeBetAttack = 2f; // 공격 간격
     private float lastAttackTime; // 마지막 공격 시점
 
-    private bool isHitBoxActive; //히트박스가켜져있는지
-    [SerializeField] private ZombieLeftHandHitbox Hitbox;//좀비공격히트박스
-    private bool hasDamaged; // 이번 공격에서 데미지 줬는지
+    [SerializeField] private ZombieLeftHandHitbox Hitbox;
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
     private bool hasTarget
@@ -176,18 +174,7 @@ public class Zombie : LivingEntity
         zombieAudioPlayer.PlayOneShot(deathSound);
     }
 
-    private void HitBoxOn()
-    {
-        isHitBoxActive = true;
-        hasDamaged = false;
-        Hitbox.gameObject.SetActive(true);
-    }
 
-    private void HitBoxOff()
-    {
-        isHitBoxActive = false;
-        Hitbox.gameObject.SetActive(false);
-    }
 
 
     private void OnTriggerStay(Collider other)
@@ -207,21 +194,23 @@ public class Zombie : LivingEntity
                 // 공격 애니메이션 재생
                 zombieAnimator.SetTrigger("Attack");
 
-                // 공격 실행
-                if (isHitBoxActive && Hitbox.isHit == true && !hasDamaged)
-                {
-                    hasDamaged = true;
-
-                    Debug.Log("Damgedgogo");
-                    // 상대방의 피격 위치와 피격 방향을 계산
-                    Vector3 hitPoint = other.ClosestPoint(transform.position);
-                    Vector3 hitNormal = (transform.position - other.transform.position).normalized;
-                    attackTarget.OnDamage(damage, hitPoint, hitNormal);
-                }
-
+        
             }
         }
     }
 
+
+
+    // Animation Event에서 호출
+    public void AE_EnableHitBox()
+    {
+        Hitbox.HitBoxOn();
+    }
+
+    // Animation Event에서 호출
+    public void AE_DisableHitBox()
+    {
+        Hitbox.HitBoxOff();
+    }
 
 }
