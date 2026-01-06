@@ -194,7 +194,7 @@ public class Zombie : LivingEntity
                 // 공격 애니메이션 재생
                 zombieAnimator.SetTrigger("Attack");
 
-        
+
             }
         }
     }
