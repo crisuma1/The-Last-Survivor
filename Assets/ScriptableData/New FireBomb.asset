@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c89b675e33d18400487c95e533fad164, type: 3}
-  m_Name: New Ammo Pack
+  m_Script: {fileID: 11500000, guid: 4d064195c43bacd46bd82a6d74d1ce53, type: 3}
+  m_Name: New FireBomb
   m_EditorClassIdentifier: 
-  itemName: Ammo Pack
-  icon: {fileID: 21300000, guid: e2ba074dcb8bdc145b9a8c7924486ac6, type: 3}
+  itemName: FireBomb
+  icon: {fileID: 21300000, guid: 05bb1ff71c143a54880920a850e211a5, type: 3}
   quantity: 1
-  ammoAmount: 30
+  FireBombPrefab: {fileID: 7258364389960051225, guid: de285cc5b4c135a499511eb48408fd3f,
+    type: 3}

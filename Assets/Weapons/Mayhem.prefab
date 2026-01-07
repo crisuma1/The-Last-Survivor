@@ -403,7 +403,7 @@ MonoBehaviour:
   muzzleFlashEffect: {fileID: 6972172703846269366}
   shellEjectEffect: {fileID: 8937058067612561510}
   gunData: {fileID: 11400000, guid: c272900a6a3ec3d48bed0500f88e9485, type: 2}
-  ammoRemain: 100
+  ammoRemain: 0
   magAmmo: 0
   LeftHandlePosition: {fileID: 1450259528425798821}
   RightHandlePosition: {fileID: 8435283537996606332}

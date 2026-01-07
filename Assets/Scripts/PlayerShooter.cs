@@ -264,16 +264,16 @@ public class PlayerShooter : MonoBehaviour
 
         /*
 
-  //IK를 사용하여 오른손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
-  playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
-  playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
+ //IK를 사용하여 오른손의 위치와 회전을 총의 오른쪽 손잡이에 맞춘다
+ playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
+ playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
 
-  playerAnimator.SetIKPosition(AvatarIKGoal.RightHand,
-      rightHandMount.position);
-  playerAnimator.SetIKRotation(AvatarIKGoal.RightHand,
-      rightHandMount.rotation);
+ playerAnimator.SetIKPosition(AvatarIKGoal.RightHand,
+     rightHandMount.position);
+ playerAnimator.SetIKRotation(AvatarIKGoal.RightHand,
+     rightHandMount.rotation);
 
-        */
+       */
 
         /*
         //crosshair의위치를총에따라다르게설정

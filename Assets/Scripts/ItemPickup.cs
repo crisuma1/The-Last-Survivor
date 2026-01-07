@@ -14,7 +14,7 @@ public class ItemPickup : MonoBehaviour
         var ui = FindObjectOfType<InventoryUI>();
         var ph = other.GetComponent<PlayerHealth>();
         if (inventory == null) return;
-        
+
         // SO 인스턴스 복제 후 IItem으로 캐스팅
         var soInstance = ScriptableObject.Instantiate(itemAsset);
         var newItem = soInstance as IItem;

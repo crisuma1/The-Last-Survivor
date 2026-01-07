@@ -33,7 +33,7 @@ public class Gun : MonoBehaviour
 
     private float fireDistance = 50f; // 사정거리
 
-    public int ammoRemain = 100; // 남은 전체 탄약
+    public int ammoRemain = 0; // 남은 전체 탄약
     public int magAmmo; // 현재 탄창에 남아있는 탄약
 
     private float lastFireTime; // 총을 마지막으로 발사한 시점
@@ -50,7 +50,7 @@ public class Gun : MonoBehaviour
     public Vector3 equipLocalRotation;
     public Vector3 equipLocalScale = Vector3.one;
 
-  
+
 
 
 
@@ -76,7 +76,7 @@ private void OnValidate()
 
         // 사용할 컴포넌트들의 참조를 가져오기
 
-       
+
 
         if (gunAudioPlayer == null)
         {
@@ -96,6 +96,16 @@ private void OnValidate()
         bulletLineRenderer.enabled = false;
 
 
+
+        // 전체 예비 탄약 양을 초기화
+        ammoRemain = gunData.startAmmoRemain;
+        // 현재 탄창을 가득채우기
+        magAmmo = gunData.magCapacity;
+
+        // 총의 현재 상태를 총을 쏠 준비가 된 상태로 변경
+        state = State.Ready;
+        // 마지막으로 총을 쏜 시점을 초기화
+        lastFireTime = 0;
     }
 
     //드랍되있는총을플레이어가획득시리스트에 추가
@@ -113,29 +123,23 @@ private void OnValidate()
     }
 
 
-    
+
 
     private void OnEnable()
     {
 
-        // 전체 예비 탄약 양을 초기화
-        ammoRemain = gunData.startAmmoRemain;
-        // 현재 탄창을 가득채우기
-        magAmmo = gunData.magCapacity;
 
-        // 총의 현재 상태를 총을 쏠 준비가 된 상태로 변경
-        state = State.Ready;
-        // 마지막으로 총을 쏜 시점을 초기화
-        lastFireTime = 0;
+
 
     }
-   
+
 
 
 
     // 발사 시도
     public bool Fire()
     {
+
         //  UI 위에 마우스가 올라가 있으면 발사 금지
         if (EventSystem.current != null &&
         EventSystem.current.IsPointerOverGameObject())
@@ -154,6 +158,8 @@ private void OnValidate()
     // 실제 발사 처리
     private void Shot()
     {
+
+
         //실제피격판정ray는 카메라중앙에서나감
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
 
@@ -167,10 +173,10 @@ private void OnValidate()
         LayerMask l = LayerMask.GetMask("Player");
 
         // 레이캐스트(시작지점, 방향, 충돌 정보 컨테이너, 사정거리)
-        if (Physics.Raycast(ray,out hit, fireDistance,~l, QueryTriggerInteraction.Ignore)) //트리거박스는 레이어에걸리지않도록
+        if (Physics.Raycast(ray, out hit, fireDistance, ~l, QueryTriggerInteraction.Ignore)) //트리거박스는 레이어에걸리지않도록
         {
             // 레이가 어떤 물체와 충돌한 경우  
-           // Debug.Log("레이캐스트 충돌 대상: " + hit.collider.gameObject.name, hit.transform);
+            // Debug.Log("레이캐스트 충돌 대상: " + hit.collider.gameObject.name, hit.transform);
 
             // 충돌한 상대방으로부터 IDamageable 오브젝트를 가져오기 시도
             IDamageable target =
@@ -189,7 +195,7 @@ private void OnValidate()
         {
             // 레이가 다른 물체와 충돌하지 않았다면
             // 총알이 최대 사정거리까지 날아갔을때의 위치를 충돌 위치로 사용
-            Debug.Log($"충돌 안됌: {hitPosition}"); 
+            Debug.Log($"충돌 안됌: {hitPosition}");
             hitPosition = fireTransform.position +
                           fireTransform.forward * fireDistance;
         }
@@ -201,7 +207,7 @@ private void OnValidate()
         Vector3 shootDir = (hitPosition - spawnPos).normalized;
         Instantiate(bullet, spawnPos, Quaternion.LookRotation(shootDir));
 
-       
+
         // 발사 이펙트 재생 시작
         StartCoroutine(ShotEffect(hitPosition));
 

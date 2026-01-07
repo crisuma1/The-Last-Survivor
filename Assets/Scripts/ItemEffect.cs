@@ -5,16 +5,15 @@ public class ItemEffect : MonoBehaviour
     [SerializeField] GameObject itemEffectPrefab;
     private GameObject effectInstance;
 
-    void Start()
+
+    private void Awake()
     {
         effectInstance = Instantiate(
         itemEffectPrefab,
         transform.position,
         Quaternion.identity,
         transform
-    );
-     
-
+        );
 
         Vector3 parentScale = transform.lossyScale;
         effectInstance.transform.localScale = new Vector3(
@@ -23,13 +22,23 @@ public class ItemEffect : MonoBehaviour
             1f / parentScale.z
         );
     }
+    void Start()
+    {
+
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            Destroy( effectInstance );
+            EffectOff();
         }
+    }
+
+    public void EffectOff()
+    {
+        Destroy(effectInstance);
+        Debug.Log("des");
     }
 
 }
