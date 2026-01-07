@@ -42,7 +42,7 @@ public class ZombieLeftHandHitbox : MonoBehaviour
         if (other.gameObject.CompareTag("Player") )
         {
             
-            Debug.Log("hit");
+            //Debug.Log("hit");
 
 
             // 공격 실행
@@ -50,7 +50,7 @@ public class ZombieLeftHandHitbox : MonoBehaviour
             {
                 hasDamaged = true;
 
-                Debug.Log("Damgedgogo");
+               // Debug.Log("Damgedgogo");
                 // 상대방의 피격 위치와 피격 방향을 계산
                 LivingEntity attackTarget = other.GetComponent<LivingEntity>();
                 Vector3 hitPoint = other.ClosestPoint(transform.position);
@@ -66,7 +66,7 @@ public class ZombieLeftHandHitbox : MonoBehaviour
         if (other.gameObject.CompareTag("Player") )
         {
             
-            Debug.Log("out");
+           // Debug.Log("out");
         }
     }
 }

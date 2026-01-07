@@ -192,6 +192,12 @@ PrefabInstance:
       propertyPath: Hitbox
       value: 
       objectReference: {fileID: 232593842238983045}
+    - target: {fileID: 2335531759507101681, guid: dcf56777c6c6fc6469501dcbc7aa5b90,
+        type: 3}
+      propertyPath: hitEffectPrefab
+      value: 
+      objectReference: {fileID: 198000011254678926, guid: da33d2f1d5c4b41689d8063e19e3a7dc,
+        type: 3}
     - target: {fileID: 5448948455230940070, guid: dcf56777c6c6fc6469501dcbc7aa5b90,
         type: 3}
       propertyPath: m_BaseOffset

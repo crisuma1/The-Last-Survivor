@@ -10,7 +10,7 @@ public class Zombie : LivingEntity
     private LivingEntity targetEntity; // 추적할 대상
     private NavMeshAgent navMeshAgent; // 경로계산 AI 에이전트
 
-    public ParticleSystem hitEffect; // 피격시 재생할 파티클 효과
+    public ParticleSystem hitEffectPrefab; // 피격시 재생할 파티클 효과
     public AudioClip deathSound; // 사망시 재생할 소리
     public AudioClip hitSound; // 피격시 재생할 소리
 
@@ -132,6 +132,7 @@ public class Zombie : LivingEntity
         // 아직 사망하지 않은 경우에만 피격 효과 재생
         if (!dead)
         {
+          ParticleSystem hitEffect = Instantiate(hitEffectPrefab, transform);
             // 공격 받은 지점과 방향으로 파티클 효과를 재생
             hitEffect.transform.position = hitPoint;
             hitEffect.transform.rotation
@@ -164,6 +165,10 @@ public class Zombie : LivingEntity
             zombieColliders[i].enabled = false;
         }
 
+        //물리작용안하게
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+
         // AI 추적을 중지하고 내비메쉬 컴포넌트를 비활성화
         navMeshAgent.isStopped = true;
         navMeshAgent.enabled = false;
@@ -172,6 +177,8 @@ public class Zombie : LivingEntity
         zombieAnimator.SetTrigger("Dead");
         // 사망 효과음 재생
         zombieAudioPlayer.PlayOneShot(deathSound);
+
+
     }
 
 
