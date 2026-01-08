@@ -1,7 +1,5 @@
-using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GlobalUIManager : MonoBehaviour
 {
@@ -27,6 +25,11 @@ public class GlobalUIManager : MonoBehaviour
     public void UpdateAmmoText(int magAmmo, int remainAmmo)
     {
         ammoText.text = magAmmo + "/" + remainAmmo;
+    }
+
+    public void UpdateBombText(int remainBomb)
+    {
+        ammoText.text = remainBomb.ToString();
     }
 
     // 게임 오버 UI 활성화

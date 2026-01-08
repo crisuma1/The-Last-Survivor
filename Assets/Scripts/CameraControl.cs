@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class CameraControl : MonoBehaviour
 {
@@ -58,9 +56,9 @@ public class CameraControl : MonoBehaviour
         PlayerShooter.OnFire -= HandleFire;
     }
 
-    void HandleFire(GunData data,AimState aim)
+    void HandleFire(GunData data, AimState aim)
     {
-        if (aim==AimState.SCope)
+        if (aim == AimState.SCope)
         {
             CameraScopeShake(data);
         }
@@ -69,17 +67,17 @@ public class CameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+
         playerHealth = FindObjectOfType<PlayerHealth>();
-      
+
 
         desiredDistance = Vector3.Distance(Camera.main.transform.position, player.position);
 
         // 카메라 초기 회전을 마우스 값으로 세팅
         Vector3 angles = transform.eulerAngles;
         mouseX = angles.y;
-        mouseY = -angles.x;     
-        
+        mouseY = -angles.x;
+
 
 
         // 커서 숨기기
@@ -106,7 +104,7 @@ public class CameraControl : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
         //플레이어 카메라에맞게 회전(180도 회전)
-        player.parent.rotation = Quaternion.Euler(0, mouseX+180, 0);
+        player.parent.rotation = Quaternion.Euler(0, mouseX + 180, 0);
     }
 
     private void SetFOV(float fov)
@@ -138,20 +136,20 @@ public class CameraControl : MonoBehaviour
     Coroutine shakeRoutine;
     public void CameraScopeShake(GunData gunData)
     {
-        if(shakeRoutine!= null)
+        if (shakeRoutine != null)
         {
             StopCoroutine(shakeRoutine);
         }
 
-        shakeRoutine=StartCoroutine(ScopeShakeRoutine(gunData));
-           
+        shakeRoutine = StartCoroutine(ScopeShakeRoutine(gunData));
+
     }
     IEnumerator ScopeShakeRoutine(GunData gunData)
     {
         float time = 0f;
         Vector3 origin = transform.localPosition;
 
-        while(time<gunData.scopeShakeDuration)
+        while (time < gunData.scopeShakeDuration)
         {
             float x = Mathf.PerlinNoise(Time.time * gunData.scopeShakeFrequency, 0) - 0.5f;
             float y = Mathf.PerlinNoise(0, Time.time * gunData.scopeShakeFrequency) - 0.5f;
@@ -230,30 +228,35 @@ public class CameraControl : MonoBehaviour
         }
 
 
-        switch (playerInput.currentAimState)
+        if (PlayerWeaponState.CurrentMode == WeaponMode.Gun)
         {
-            case AimState.None:
-                {
-                    targetFOV = shooter.CurrentDefaultFOV;
-                    // Debug.Log("defaultFOV");
-                    break;
-                }
-            case AimState.ADS:
-                {
-                    targetFOV = shooter.CurrentAdsFOV;
-                    //Debug.Log("adsFOV");
-                    break;
-                }
-            case AimState.SCope:
-                {
-                    targetFOV = shooter.CurrentScopeFOV;
-                    //Debug.Log("scopeFOV");
-                    break;
-                }
-                
+            switch (playerInput.currentAimState)
+            {
+                case AimState.None:
+                    {
+                        targetFOV = shooter.CurrentDefaultFOV;
+                        // Debug.Log("defaultFOV");
+                        break;
+                    }
+                case AimState.ADS:
+                    {
+                        targetFOV = shooter.CurrentAdsFOV;
+                        //Debug.Log("adsFOV");
+                        break;
+                    }
+                case AimState.SCope:
+                    {
+                        targetFOV = shooter.CurrentScopeFOV;
+                        //Debug.Log("scopeFOV");
+                        break;
+                    }
+
+            }
+
+            SetFOV(targetFOV);
         }
 
-        SetFOV(targetFOV);
+
 
 
 

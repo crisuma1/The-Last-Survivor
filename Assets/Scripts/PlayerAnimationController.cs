@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public enum EventAnimType
 {
@@ -12,7 +12,7 @@ public enum EventAnimType
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] int eventLayerIndex = 2;
+    [SerializeField] int eventLayerIndex = 3;
 
     Coroutine eventRoutine;
     bool isDead;
@@ -62,6 +62,6 @@ public class PlayerAnimationController : MonoBehaviour
 
 
         animator.SetTrigger(EventAnimType.Die.ToString());
-       
+
     }
 }

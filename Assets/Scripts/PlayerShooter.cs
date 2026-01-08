@@ -104,6 +104,7 @@ public class PlayerShooter : MonoBehaviour
 
     private void ApplySpineRotationByCamera()
     {
+
         //  카메라 X 각도 가져오기 (local 기준)
         float camX = cameraPivot.localEulerAngles.x;
         if (camX > 180f) camX -= 360f; // -180 ~ 180 변환
@@ -132,6 +133,18 @@ public class PlayerShooter : MonoBehaviour
             spineBaseLocalRotation * Quaternion.Euler(0, 0, spineZ);
 
     }
+    private void ApplyLeanAnimationByCamera()
+    {
+        //  카메라 X 각도 가져오기 (local 기준)
+        float camX = cameraPivot.localEulerAngles.x;
+        if (camX > 180f) camX -= 360f; // -180 ~ 180 변환
+
+        //  입력 범위 제한
+        camX = Mathf.Clamp(camX, -45f, 40f);
+
+        playerAnimator.SetFloat("Lean", camX);
+    }
+
 
     private void Start()
     {
@@ -221,8 +234,9 @@ public class PlayerShooter : MonoBehaviour
 
     void LateUpdate()
     {
+        //ApplyLeanAnimationByCamera();
         //카메라x축회전에따른spine01의 z값조정
-       ApplySpineRotationByCamera();
+        //ApplySpineRotationByCamera();
     }
     // 애니메이터의 IK 갱신
     private void OnAnimatorIK(int layerIndex)
