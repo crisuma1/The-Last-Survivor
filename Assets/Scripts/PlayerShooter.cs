@@ -222,7 +222,7 @@ public class PlayerShooter : MonoBehaviour
     void LateUpdate()
     {
         //카메라x축회전에따른spine01의 z값조정
-        ApplySpineRotationByCamera();
+       ApplySpineRotationByCamera();
     }
     // 애니메이터의 IK 갱신
     private void OnAnimatorIK(int layerIndex)
