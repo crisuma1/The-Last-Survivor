@@ -234,7 +234,7 @@ public class PlayerShooter : MonoBehaviour
 
     void LateUpdate()
     {
-        //ApplyLeanAnimationByCamera();
+        ApplyLeanAnimationByCamera();
         //카메라x축회전에따른spine01의 z값조정
         //ApplySpineRotationByCamera();
     }

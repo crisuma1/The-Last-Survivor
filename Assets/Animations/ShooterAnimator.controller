@@ -525,12 +525,12 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Upper Body for Lean
     m_StateMachine: {fileID: 8657138312463597019}
-    m_Mask: {fileID: 31900000, guid: a0bb31f6cca2c444dabf132a8b2b5f93, type: 2}
+    m_Mask: {fileID: 31900000, guid: dd1c80775e8c1eb47aa1af378bcaefe4, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 1
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
@@ -540,7 +540,7 @@ AnimatorController:
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
-    m_BlendingMode: 1
+    m_BlendingMode: 0
     m_SyncedLayerIndex: -1
     m_DefaultWeight: 0
     m_IKPass: 0
@@ -997,7 +997,7 @@ BlendTree:
   m_Name: Lean Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 8993902097722301239, guid: a11de41b0944ea24c923eb9313ec5c07,
+    m_Motion: {fileID: 8993902097722301239, guid: 07f741d3f83574e4294942c727400268,
       type: 3}
     m_Threshold: -45
     m_Position: {x: 0, y: 0}
@@ -1015,7 +1015,7 @@ BlendTree:
     m_DirectBlendParameter: Move
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 8993902097722301239, guid: 606d0e54fe747e14985fc377a71a4833,
+    m_Motion: {fileID: 8993902097722301239, guid: f44d09cf5e90d314c97e90e0158e2340,
       type: 3}
     m_Threshold: 40
     m_Position: {x: 0, y: 0}
@@ -1094,7 +1094,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -3279137334677072522}
-    m_Position: {x: -3757.1055, y: 38.04419, z: 0}
+    m_Position: {x: -3760, y: 40, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
