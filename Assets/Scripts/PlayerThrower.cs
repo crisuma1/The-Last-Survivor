@@ -1,38 +1,59 @@
 using UnityEngine;
 
-public class PlayerThrower : MonoBehaviour
+public class PlayerThrower : PlayerHandState
 {
     [SerializeField] private Transform throwPosition;
     GameObject equippedBomb;
-    private Animator playAnimator;
-
-    private PlayerInput playerInput; // 플레이어의 입력
-    private Animator playerAnimator; // 애니메이터 컴포넌트
-
+    private FireBomb currentBombData;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
-        playAnimator = GetComponent<Animator>();
+        base.Awake();
     }
 
     public void Equip(FireBomb fireBombData)
     {
-        PlayerWeaponState.SetMode(WeaponMode.Throw);
+        currentBombData = fireBombData;
+
+    }
 
 
-        //슈터 비활성화
-        GetComponent<PlayerShooter>().enabled = false;
 
-        //총비활성화
-        GetComponent<PlayerShooter>().CurrentGun.gameObject.SetActive(false);
+    public void UnEquip()
+    {
+        animator.SetBool("IsThrowing", false);
+    }
 
-        equippedBomb = Instantiate(fireBombData.FireBombPrefab, throwPosition);
+    private void UpdateUI()
+    {
+
+    }
+
+
+    public override void Enter()
+    {
+
+
+        base.Enter();
+        equippedBomb = Instantiate(currentBombData.FireBombPrefab, throwPosition);
         equippedBomb.transform.localPosition = Vector3.zero;
         equippedBomb.transform.localRotation = Quaternion.identity;
         equippedBomb.GetComponent<ItemEffect>().EffectOff();
 
-        playAnimator.SetBool("IsThrowing", true);
+        animator.SetBool("IsThrowing", true);
+
+    }
+
+    public override void HandleInput()
+    {
+        base.HandleInput();
+
+
+        //gun slot 에 해당하는번호가눌렷을때 change state해서그번호에해당하는 gun slot 으로 이동
+
+        //대신에 위에조건쓸려면 이제 gun slot의 번호를 한번쓰고 이제 폭탄상태로바꿀때 다시 -1로해주는로직이필요함 
+
     }
 
     public void Throw()
@@ -41,30 +62,12 @@ public class PlayerThrower : MonoBehaviour
         UpdateUI();
     }
 
-    public void UnEquip()
+    public override void Exit()
     {
-        PlayerWeaponState.SetMode(WeaponMode.Gun);
+        base.Exit();
+        UnEquip();
 
-        // 2. 슈터 다시 활성화
-        var shooter = GetComponent<PlayerShooter>();
-        shooter.enabled = true;
-
-        // 3. 총 다시 활성화
-        shooter.CurrentGun.gameObject.SetActive(true);
-
-        playAnimator.SetBool("IsThrowing", false);
-    }
-
-    private void UpdateUI()
-    {
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-            UnEquip();
-
-    }
 }

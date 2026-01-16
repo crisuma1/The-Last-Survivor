@@ -6,6 +6,6 @@ AvatarMask:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UpperbodyNoRoot
+  m_Name: TorsoMask
   m_Mask: 00000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_Elements: []

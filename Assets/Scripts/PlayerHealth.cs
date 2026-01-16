@@ -2,7 +2,8 @@
 using UnityEngine.UI; // UI 관련 코드
 
 // 플레이어 캐릭터의 생명체로서의 동작을 담당
-public class PlayerHealth : LivingEntity {
+public class PlayerHealth : LivingEntity
+{
     public Slider healthSlider; // 체력을 표시할 UI 슬라이더
 
     public AudioClip deathClip; // 사망 소리
@@ -14,19 +15,21 @@ public class PlayerHealth : LivingEntity {
 
     private PlayerMovement playerMovement; // 플레이어 움직임 컴포넌트
     private PlayerShooter playerShooter; // 플레이어 슈터 컴포넌트
-    private PlayerAnimationController anim; //플레이어애님컨트롤러할당
+    private PlayerEventAnimationController anim; //플레이어애님컨트롤러할당
 
-    private void Awake() {
+    private void Awake()
+    {
         // 사용할 컴포넌트를 가져오기
         playerAnimator = GetComponent<Animator>();
         playerAudioPlayer = GetComponent<AudioSource>();
 
         playerMovement = GetComponent<PlayerMovement>();
         playerShooter = GetComponent<PlayerShooter>();
-        anim=GetComponent<PlayerAnimationController>();
+        anim = GetComponent<PlayerEventAnimationController>();
     }
 
-    protected override void OnEnable() {
+    protected override void OnEnable()
+    {
         // LivingEntity의 OnEnable() 실행 (상태 초기화)
         base.OnEnable();
 
@@ -41,11 +44,12 @@ public class PlayerHealth : LivingEntity {
         playerMovement.enabled = true;
         playerShooter.enabled = true;
 
-        
+
     }
 
     // 체력 회복
-    public override void RestoreHealth(float newHealth) {
+    public override void RestoreHealth(float newHealth)
+    {
         // LivingEntity의 RestoreHealth() 실행 (체력 증가)
         base.RestoreHealth(newHealth);
         // 체력 갱신
@@ -55,7 +59,8 @@ public class PlayerHealth : LivingEntity {
 
     // 데미지 처리
     public override void OnDamage(float damage, Vector3 hitPoint,
-        Vector3 hitDirection) {
+        Vector3 hitDirection)
+    {
 
         if (dead) return;
         // 사망하지 않은 경우에만 효과음을 재생
@@ -67,15 +72,16 @@ public class PlayerHealth : LivingEntity {
         healthSlider.value = health;
         if (!dead)
         {
- 
+
             anim.PlayEvent(EventAnimType.Hit); ;
         }
 
- 
+
     }
 
     // 사망 처리
-    public override void Die() {
+    public override void Die()
+    {
         // LivingEntity의 Die() 실행(사망 적용)
         base.Die();
 
@@ -91,13 +97,13 @@ public class PlayerHealth : LivingEntity {
         playerMovement.enabled = false;
         playerShooter.enabled = false;
     }
-    
+
     public void PlayPickupSfx()
     {
-        if(itemPickupClip != null&& playerAudioPlayer!=null )
+        if (itemPickupClip != null && playerAudioPlayer != null)
         {
             playerAudioPlayer.PlayOneShot(itemPickupClip);
         }
     }
-  
+
 }

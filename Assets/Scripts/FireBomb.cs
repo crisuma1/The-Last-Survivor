@@ -29,9 +29,12 @@ public class FireBomb : ScriptableObject, IItem
     {
 
 
+        var controller = target.GetComponent<PlayerHandStateController>();
         var thrower = target.GetComponent<PlayerThrower>();
-        thrower.Equip(this);
 
-        Quantity--;
+        thrower.Equip(this);
+        controller.ChangeState(thrower);
+
+        //Quantity--;
     }
 }

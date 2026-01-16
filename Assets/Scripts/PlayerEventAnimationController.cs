@@ -9,7 +9,7 @@ public enum EventAnimType
     Die
 }
 
-public class PlayerAnimationController : MonoBehaviour
+public class PlayerEventAnimationController : MonoBehaviour
 {
     [SerializeField] Animator animator;
     [SerializeField] int eventLayerIndex = 3;

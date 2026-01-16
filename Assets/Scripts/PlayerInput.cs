@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.Design;
-using UnityEngine;
+﻿using UnityEngine;
 
 // 플레이어 캐릭터를 조작하기 위한 사용자 입력을 감지
 // 감지된 입력값을 다른 컴포넌트들이 사용할 수 있도록 제공
@@ -36,22 +34,24 @@ public class PlayerInput : MonoBehaviour
     public bool reload { get; private set; } // 감지된 재장전 입력값
 
     public bool jumpPressed { get; private set; }
-   
+
     public PlayerShooter shooter { get; private set; }
 
-    public AimState currentAimState= AimState.None;
+    public AimState currentAimState = AimState.None;
 
     //-1값은 마우스우클릭을처음눌럿을때 ADS로설정하기위한 임시값
     float lastRightClickTime = -1f;
     //우클릭한번누른상태에서 다시누를떄scope상태로가기위한최소시간
     float doubleClickThreshold = 1f;
     //우클릭누르는중인지
-    bool isRightHeld =false;
+    bool isRightHeld = false;
 
     //단발연발구분해서 애니따로나오게
     public FireState currentFireState = FireState.Single;
     private float SingleToAutomaticGap = 0.1f; //단발에서연발로넘어가는데누르는시간갭
     private float fireButtonDownTime = 1f; //총입력처음누른시간
+
+    public int gunSlot { get; private set; } = -1;
 
     private void Awake()
     {
@@ -115,29 +115,30 @@ public class PlayerInput : MonoBehaviour
         jumpPressed = Input.GetButtonDown("Jump");
 
         //총종류변경
-        if(Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            shooter.ChangeGun(0);
+            gunSlot = 0;
+
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            shooter.ChangeGun(1);
+            gunSlot = 1;
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
-            shooter.ChangeGun(2);
+            gunSlot = 2;
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            shooter.ChangeGun(3);
+            gunSlot = 3;
         }
 
         //마우스우클릭한번시중간줌->두번클릭시확대줌
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             float now = Time.time;
 
-            if(now-lastRightClickTime<=doubleClickThreshold)
+            if (now - lastRightClickTime <= doubleClickThreshold)
             {
                 currentAimState = AimState.SCope;
             }

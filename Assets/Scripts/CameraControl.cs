@@ -228,7 +228,7 @@ public class CameraControl : MonoBehaviour
         }
 
 
-        if (PlayerWeaponState.CurrentMode == WeaponMode.Gun)
+        //if (PlayerWeaponState.CurrentMode == WeaponMode.Gun)
         {
             switch (playerInput.currentAimState)
             {
