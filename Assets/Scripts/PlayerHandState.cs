@@ -1,14 +1,22 @@
 using UnityEngine;
 
+public enum HandStateType { Shooter, Thrower, Melee }
+
 public abstract class PlayerHandState : MonoBehaviour
 {
+    public abstract HandStateType StateType { get; }
     protected Animator animator;
     protected PlayerInput input;
-
+    protected PlayerHandStateController statecontroller;
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
-        input = GetComponent<PlayerInput>();
+    }
+
+    public virtual void Init(PlayerHandStateController c)
+    {
+        statecontroller = c;
+        animator = c.Animator;
+        input = c.Input;
     }
 
     public virtual void Enter() { }
@@ -19,15 +27,4 @@ public abstract class PlayerHandState : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 // 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
 public class PlayerShooter : PlayerHandState
 {
+    public override HandStateType StateType => HandStateType.Shooter;
     public Gun OriginalGun;// 사용할 기본총
     [HideInInspector] public Gun CurrentGun; // 현재사용중인총
     public Transform gunPivot; // 총 배치의 기준점
@@ -154,6 +155,7 @@ public class PlayerShooter : PlayerHandState
     {
         base.Enter();
         CurrentGun.gameObject.SetActive(true);
+        Debug.Log("OMG");
 
     }
 
@@ -224,6 +226,7 @@ public class PlayerShooter : PlayerHandState
     {
         base.Exit();
         CurrentGun.gameObject.SetActive(false);
+        input.InitGunSlot();
     }
 
 

@@ -25,15 +25,14 @@ public class FireBomb : ScriptableObject, IItem
 
     }
 
-    public void Use(GameObject target)
+    public void Use(GameObject target, int slotIndex)
     {
 
-
         var controller = target.GetComponent<PlayerHandStateController>();
-        var thrower = target.GetComponent<PlayerThrower>();
+        var thrower = controller.throwState;
 
-        thrower.Equip(this);
-        controller.ChangeState(thrower);
+        thrower.SetData(this, slotIndex);
+        controller.RequestState(HandStateType.Thrower);
 
         //Quantity--;
     }

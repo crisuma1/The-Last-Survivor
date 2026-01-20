@@ -2,7 +2,8 @@
 
 // 체력을 회복하는 아이템
 [CreateAssetMenu(menuName = "Items/HealthPack", fileName = "New Health Pack")]
-public class HealthPack : ScriptableObject, IItem {
+public class HealthPack : ScriptableObject, IItem
+{
     [SerializeField] private string itemName = "Heal Potion";
     [SerializeField] private Sprite icon;
     [SerializeField] private int quantity = 1;
@@ -14,7 +15,8 @@ public class HealthPack : ScriptableObject, IItem {
 
 
 
-    public void Use(GameObject target) {
+    public void Use(GameObject target, int slotIndex)
+    {
         // 전달받은 게임 오브젝트로부터 LivingEntity 컴포넌트 가져오기 시도
         LivingEntity life = target.GetComponent<LivingEntity>();
 
@@ -25,7 +27,7 @@ public class HealthPack : ScriptableObject, IItem {
             life.RestoreHealth(healAmount);
         }
         // 사용된 아이템이므로, 수량을 감소시킴
-     Quantity--;
+        Quantity--;
 
     }
 }

@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
         IItem item = itemSlots[index];
         if (item != null && item.Quantity > 0)
         {
-            item.Use(player);
+            item.Use(player, index);
 
             if (item.Quantity <= 0)
             {

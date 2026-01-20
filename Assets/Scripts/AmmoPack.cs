@@ -19,7 +19,7 @@ public class AmmoPack : ScriptableObject, IItem
 
 
 
-    public void Use(GameObject target)
+    public void Use(GameObject target, int slotIndex)
     {
         // 전달 받은 게임 오브젝트로부터 PlayerShooter 컴포넌트를 가져오기 시도
         PlayerShooter playerShooter = target.GetComponent<PlayerShooter>();

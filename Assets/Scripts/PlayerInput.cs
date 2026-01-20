@@ -58,7 +58,10 @@ public class PlayerInput : MonoBehaviour
         shooter = GetComponent<PlayerShooter>();
     }
 
-
+    public void InitGunSlot()
+    {
+        gunSlot = -1;
+    }
     // 매프레임 사용자 입력을 감지
     private void Update()
     {
