@@ -86,9 +86,24 @@ public class PlayerThrower : PlayerHandState
     {
         base.HandleInput();
 
+        if (input.fire)
+        {
+            animator.SetBool("IsThrowing", false);
+            animator.SetTrigger("Throw");
+            Debug.Log("firehall");
+        }
+
+
+
+
 
         if (input.gunSlot >= 0)
+        {
             statecontroller.RequestState(HandStateType.Shooter);
+            animator.SetBool("IsThrowing", false);
+        }
+
+
 
     }
 

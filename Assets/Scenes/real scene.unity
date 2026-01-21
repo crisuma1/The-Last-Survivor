@@ -32754,7 +32754,7 @@ PrefabInstance:
     - target: {fileID: 7258364389960051225, guid: de285cc5b4c135a499511eb48408fd3f,
         type: 3}
       propertyPath: m_Name
-      value: firebomb (1)
+      value: firebomb456
       objectReference: {fileID: 0}
     - target: {fileID: 8066284862045794467, guid: de285cc5b4c135a499511eb48408fd3f,
         type: 3}
@@ -77675,6 +77675,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shooterState: {fileID: 2189165696339977855}
   throwState: {fileID: 2189165696339977868}
+  cameraPivot: {fileID: 794324020}
+  spine: {fileID: 2069648730}
 --- !u!4 &2321870598519993448 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6445503090539958485, guid: 68c6dd8e7dfcdad4d9d3341eee9c5601,
@@ -80101,10 +80103,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1699534742438532060, guid: de285cc5b4c135a499511eb48408fd3f,
+        type: 3}
+      propertyPath: quantity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7258364389960051225, guid: de285cc5b4c135a499511eb48408fd3f,
         type: 3}
       propertyPath: m_Name
-      value: firebomb
+      value: firebomb123
       objectReference: {fileID: 0}
     - target: {fileID: 8066284862045794467, guid: de285cc5b4c135a499511eb48408fd3f,
         type: 3}

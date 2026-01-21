@@ -8,9 +8,12 @@ public abstract class PlayerHandState : MonoBehaviour
     protected Animator animator;
     protected PlayerInput input;
     protected PlayerHandStateController statecontroller;
+
     protected virtual void Awake()
     {
+
     }
+
 
     public virtual void Init(PlayerHandStateController c)
     {
@@ -23,7 +26,10 @@ public abstract class PlayerHandState : MonoBehaviour
 
     public virtual void Exit() { }
 
-    public virtual void HandleInput() { }
+    public virtual void HandleInput()
+    {
+
+    }
 
 
 

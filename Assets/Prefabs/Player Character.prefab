@@ -3777,8 +3777,6 @@ MonoBehaviour:
   gunPivot: {fileID: 8512681967524257243}
   leftHandMount: {fileID: 4165594031000882792}
   rightHandMount: {fileID: 8314988899316005990}
-  cameraPivot: {fileID: 0}
-  spine: {fileID: 0}
   CurrentDefaultFOV: 0
   CurrentAdsFOV: 0
   CurrentScopeFOV: 0

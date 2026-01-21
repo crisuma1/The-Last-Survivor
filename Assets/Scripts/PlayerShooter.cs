@@ -16,12 +16,7 @@ public class PlayerShooter : PlayerHandState
     private int currentGunIndex = 0; //현재활성화된총의인덱스
     private bool crosshairInitialized = false; //총의조준선활성화여부
 
-    //카메라가아래를보면캐릭터도숙이기위해서 사용
-    [Header("Aim Spine Control")]
-    [SerializeField] Transform cameraPivot;   // 카메라 피벗
-    [SerializeField] Transform spine;          // Spine 또는 Chest
-    //스파인z값제외한나머지는기본값반영
-    private Quaternion spineBaseLocalRotation;
+
 
     public float CurrentDefaultFOV;
     public float CurrentAdsFOV;
@@ -101,55 +96,6 @@ public class PlayerShooter : PlayerHandState
     }
 
 
-    private void ApplySpineRotationByCamera()
-    {
-
-        //  카메라 X 각도 가져오기 (local 기준)
-        float camX = cameraPivot.localEulerAngles.x;
-        if (camX > 180f) camX -= 360f; // -180 ~ 180 변환
-
-        //  입력 범위 제한
-        camX = Mathf.Clamp(camX, -45f, 40f);
-
-        float spineZ;
-
-        //  구간별 선형 매핑
-        if (camX <= 0f)
-        {
-            // -45 → +30  /  0 → 0
-            spineZ = Mathf.Lerp(30f, 0f, Mathf.InverseLerp(-45f, 0f, camX));
-            //Debug.Log(spineZ);
-        }
-        else
-        {
-            // 0 → 0  /  40 → -40
-            spineZ = Mathf.Lerp(0f, -40f, Mathf.InverseLerp(0f, 40f, camX));
-            //Debug.Log(spineZ);
-        }
-
-        //  애니메이션 이후 덮어쓰기 (Additive)
-        spine.localRotation =
-            spineBaseLocalRotation * Quaternion.Euler(0, 0, spineZ);
-
-    }
-    private void ApplyLeanAnimationByCamera()
-    {
-        //  카메라 X 각도 가져오기 (local 기준)
-        float camX = cameraPivot.localEulerAngles.x;
-        if (camX > 180f) camX -= 360f; // -180 ~ 180 변환
-
-        //  입력 범위 제한
-        camX = Mathf.Clamp(camX, -45f, 40f);
-
-        animator.SetFloat("Lean", camX);
-    }
-
-
-    private void Start()
-    {
-        // Spine 기본 회전 저장
-        spineBaseLocalRotation = spine.localRotation;
-    }
 
     public override void Enter()
     {
@@ -240,12 +186,7 @@ public class PlayerShooter : PlayerHandState
         }
     }
 
-    void LateUpdate()
-    {
-        ApplyLeanAnimationByCamera();
-        //카메라x축회전에따른spine01의 z값조정
-        //ApplySpineRotationByCamera();
-    }
+
     // 애니메이터의 IK 갱신
     private void OnAnimatorIK(int layerIndex)
     {
@@ -255,6 +196,14 @@ public class PlayerShooter : PlayerHandState
         // AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(1);
 
         //bool isSniperRecoil = stateInfo.IsName("GunplaySniper");
+
+        // Shooter 상태가 아니면 총기설정의 IK적용안함 하지 않음
+        if (statecontroller.CurrentState != this)
+        {
+            return;
+        }
+
+
 
         gunPivot.position = animator.GetIKHintPosition(AvatarIKHint.RightElbow);
         //Debug.Log(playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow));
