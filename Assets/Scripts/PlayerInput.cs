@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 // 플레이어 캐릭터를 조작하기 위한 사용자 입력을 감지
 // 감지된 입력값을 다른 컴포넌트들이 사용할 수 있도록 제공
@@ -12,12 +11,6 @@ public enum AimState
     SCope
 }
 
-public enum FireState
-{
-    Single,
-    Automatic
-}
-
 
 public class PlayerInput : MonoBehaviour
 {
@@ -25,12 +18,14 @@ public class PlayerInput : MonoBehaviour
     public string moveHorizontalName = "Horizontal"; // 좌우 움직임을 위한 입력축 이름
     public string fireButtonName = "Fire1"; // 발사를 위한 입력 버튼 이름
     public string reloadButtonName = "Reload"; // 재장전을 위한 입력 버튼 이름
-    
+
 
     // 값 할당은 내부에서만 가능
     public float horizontalmove { get; private set; } // 감지된 움직임 입력값
     public float verticalmove { get; private set; } // 감지된 회전 입력값
-    public bool fire { get; private set; } // 감지된 발사 입력값
+
+    public bool fireDown { get; private set; } // 누른 순간
+    public bool fireUp { get; private set; }   // 뗀 순간
 
 
     public bool reload { get; private set; } // 감지된 재장전 입력값
@@ -48,17 +43,12 @@ public class PlayerInput : MonoBehaviour
     //우클릭누르는중인지
     bool isRightHeld = false;
 
-    //단발연발구분해서 애니따로나오게
-    public FireState currentFireState = FireState.Single;
-    private float SingleToAutomaticGap = 0.1f; //단발에서연발로넘어가는데누르는시간갭
-    private float fireButtonDownTime = 1f; //총입력처음누른시간
-
     public int gunSlot { get; private set; } = -1;
 
     private void Awake()
     {
         shooter = GetComponent<PlayerShooter>();
-      
+
     }
 
     public void InitGunSlot()
@@ -68,14 +58,15 @@ public class PlayerInput : MonoBehaviour
     // 매프레임 사용자 입력을 감지
     private void Update()
     {
-     
+
         // 게임오버 상태에서는 사용자 입력을 감지하지 않는다
         if (GameManager.instance != null
             && GameManager.instance.isGameover)
         {
             horizontalmove = 0;
             verticalmove = 0;
-            fire = false;
+            fireDown = false;
+            fireUp = false;
             reload = false;
             jumpPressed = false;
             return;
@@ -86,34 +77,8 @@ public class PlayerInput : MonoBehaviour
         // rotate에 관한 입력 감지
         verticalmove = Input.GetAxis(moveVerticalName);
         // fire에 관한 입력 감지
-        fire = Input.GetButton(fireButtonName);
-
-
-        //단발연발구분용로직
-        // 버튼 처음 눌렀을 때
-        if (Input.GetButtonDown(fireButtonName))
-        {
-            fireButtonDownTime = Time.time;
-            currentFireState = FireState.Single;
-        }
-
-        // 누르고 있는 동안
-        if (fire)
-        {
-            if (currentFireState == FireState.Single &&
-                Time.time - fireButtonDownTime >= SingleToAutomaticGap)
-            {
-                currentFireState = FireState.Automatic;
-            }
-        }
-
-        // 버튼을 떼면 리셋
-        if (Input.GetButtonUp(fireButtonName))
-        {
-            currentFireState = FireState.Single;
-        }
-
-
+        fireDown = Input.GetButtonDown(fireButtonName);
+        fireUp = Input.GetButtonUp(fireButtonName);
 
 
         // reload에 관한 입력 감지

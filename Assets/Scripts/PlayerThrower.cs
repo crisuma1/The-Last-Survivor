@@ -47,13 +47,13 @@ public class PlayerThrower : PlayerHandState
 
     public void UnEquip()
     {
-        //animator.SetBool("IsThrowing", false);
+        animator.SetTrigger("ThrowingToIdle");
         equippedBomb.SetActive(false);
     }
 
     public void Equip()
     {
-        animator.SetTrigger("IsThrowing"); ;
+        animator.SetTrigger("IsThrowing");
         equippedBomb.SetActive(true);
         Debug.Log("Equipped");
     }
@@ -79,17 +79,17 @@ public class PlayerThrower : PlayerHandState
             Debug.Log("nobomb");
         }
 
-        
+
     }
 
     public override void HandleInput()
     {
         base.HandleInput();
 
-        if (input.fire)
+        if (input.fireDown)
         {
-           // animator.SetBool("IsThrowing", false);
-            
+            // animator.SetBool("IsThrowing", false);
+
             animator.SetTrigger("Throw");
             Debug.Log("firehall");
         }
@@ -100,9 +100,9 @@ public class PlayerThrower : PlayerHandState
 
         if (input.gunSlot >= 0)
         {
-           
+
             statecontroller.RequestState(HandStateType.Shooter);
-            
+
         }
 
 

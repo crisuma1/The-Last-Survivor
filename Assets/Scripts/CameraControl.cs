@@ -132,7 +132,7 @@ public class CameraControl : MonoBehaviour
     }
 
 
-
+    //gundata의 반동에따른 스코프상태일때의 캠shake
     Coroutine shakeRoutine;
     public void CameraScopeShake(GunData gunData)
     {
@@ -151,6 +151,8 @@ public class CameraControl : MonoBehaviour
 
         while (time < gunData.scopeShakeDuration)
         {
+
+            //PerlinNoise는난수를일정간격으로뽑아주는알고리즘임
             float x = Mathf.PerlinNoise(Time.time * gunData.scopeShakeFrequency, 0) - 0.5f;
             float y = Mathf.PerlinNoise(0, Time.time * gunData.scopeShakeFrequency) - 0.5f;
 

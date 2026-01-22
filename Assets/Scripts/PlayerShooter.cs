@@ -1,6 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+//총이연사인지단발인지 설정
+public enum FireState
+{
+    Single,
+    Automatic
+}
+
 
 // 주어진 Gun 오브젝트를 쏘거나 재장전
 // 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
@@ -22,7 +31,17 @@ public class PlayerShooter : PlayerHandState
     public float CurrentAdsFOV;
     public float CurrentScopeFOV;
 
+    //총발사할때 같이발동될필요가있는 이벤트 등록하는곳
     public static event Action<GunData, AimState> OnFire;
+
+
+    [SerializeField] private float autoFireStartDelay = 0.15f; //연사모션나오는시간
+
+    private bool isFiring; //총을계속쏘고있는지
+    private float firePressedTime; //마지막으로총을누른시간
+    private Coroutine autoFireCoroutine; //총연사로직 
+
+
 
     public void Awake()
     {
@@ -119,36 +138,26 @@ public class PlayerShooter : PlayerHandState
 
 
         // 입력을 감지하고 총 발사하거나 재장전
-        if (input.fire)
+
+        // 눌렀을 때
+        if (input.fireDown)
         {
-            // 발사 입력 감지시 총 발사
-            if (CurrentGun.Fire())
-            {
-                if (input.currentFireState == FireState.Single || CurrentGun.gunData.GunState == FireState.Single)
-                {
-                    animator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
-                    // Debug.Log("shot");
+            firePressedTime = Time.time;
+            isFiring = true;
 
-
-
-                }
-                if (input.currentFireState == FireState.Automatic && CurrentGun.gunData.GunState == FireState.Automatic)
-                {
-                    animator.SetBool("Automatic", true);
-                    // Debug.Log("Auto");
-                }
-
-                //스코프상태일때카메라반동
-
-                OnFire?.Invoke(CurrentGun.gunData, input.currentAimState);
-
-
-            }
-
+            FireOnce(); // 첫 발은 무조건 즉시
+            TryStartAutoFire();
         }
 
 
-        else if (input.reload)
+        // 뗐을 때
+        if (input.fireUp)
+        {
+            isFiring = false;
+            StopAutoFire();
+        }
+
+        if (input.reload)
         {
             // 재장전 입력 감지시 재장전
             if (CurrentGun.Reload())
@@ -157,13 +166,6 @@ public class PlayerShooter : PlayerHandState
                 animator.SetTrigger("Reload");
             }
         }
-        else
-        {
-            //총안쏠때연발해제
-            animator.SetBool("Automatic", false);
-        }
-
-
         // 남은 탄약 UI를 갱신
         UpdateUI();
     }
@@ -175,6 +177,54 @@ public class PlayerShooter : PlayerHandState
         input.InitGunSlot();
     }
 
+    void FireOnce()
+    {
+        if (!CurrentGun.Fire()) return;
+
+        animator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
+        OnFire?.Invoke(CurrentGun.gunData, input.currentAimState);
+    }
+
+    void TryStartAutoFire()
+    {
+        if (CurrentGun.gunData.GunState != FireState.Automatic)
+            return;
+
+        autoFireCoroutine = StartCoroutine(AutoFireRoutine());
+    }
+
+    IEnumerator AutoFireRoutine()
+    {
+        // 단발/연사 구분용 딜레이
+        yield return new WaitForSeconds(autoFireStartDelay);
+
+        while (isFiring)
+        {
+            if (CurrentGun.Fire())
+            {
+                //Debug.Log("currentfire");
+                animator.SetBool("Automatic", true);
+                OnFire?.Invoke(CurrentGun.gunData, input.currentAimState);
+            }
+
+            //기본발사간격대기
+            yield return new WaitForSeconds(CurrentGun.gunData.timeBetFire);
+        }
+
+        animator.SetBool("Automatic", false);
+    }
+
+    //연사 코루틴도중에만약에무기를바꾸면 isFiring이 false처리가안되기때문에 여기서해줌
+    void StopAutoFire()
+    {
+        if (autoFireCoroutine != null)
+        {
+            StopCoroutine(autoFireCoroutine);
+            autoFireCoroutine = null;
+        }
+
+        animator.SetBool("Automatic", false);
+    }
 
     // 탄약 UI 갱신
     private void UpdateUI()
