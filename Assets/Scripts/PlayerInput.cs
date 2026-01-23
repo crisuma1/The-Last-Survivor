@@ -80,7 +80,8 @@ public class PlayerInput : MonoBehaviour
         fireDown = Input.GetButtonDown(fireButtonName);
         fireUp = Input.GetButtonUp(fireButtonName);
 
-
+        
+        
         // reload에 관한 입력 감지
         reload = Input.GetButtonDown(reloadButtonName);
 

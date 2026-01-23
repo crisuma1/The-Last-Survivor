@@ -8,9 +8,6 @@ public class Inventory : MonoBehaviour
     {
         if (index < 0 || index >= itemSlots.Length) return;
 
-
-
-
         IItem item = itemSlots[index];
         if (item != null && item.Quantity > 0)
         {

@@ -207,8 +207,8 @@ public class PlayerShooter : PlayerHandState
                 OnFire?.Invoke(CurrentGun.gunData, input.currentAimState);
             }
 
-            //기본발사간격대기
-            yield return new WaitForSeconds(CurrentGun.gunData.timeBetFire);
+            //한프레임에계속호출되는거방지
+            yield return null; ;
         }
 
         animator.SetBool("Automatic", false);
