@@ -47058,6 +47058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 2189165696339977853}
+  stateController: {fileID: 2189165696339977875}
   scopeUI: {fileID: 1370513226}
 --- !u!1001 &1441720198
 PrefabInstance:
@@ -77675,6 +77676,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shooterState: {fileID: 2189165696339977855}
   throwState: {fileID: 2189165696339977868}
+  inventory: {fileID: 2189165696339977849}
+  inventoryUI: {fileID: 821572703}
   cameraPivot: {fileID: 794324020}
   spine: {fileID: 2069648730}
 --- !u!4 &2321870598519993448 stripped

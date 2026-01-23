@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -21,18 +19,6 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         RefreshAll();
-    }
-
-    void Update()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            if (Input.GetKeyDown((i == 9) ? KeyCode.Alpha0 : (KeyCode)((int)KeyCode.Alpha1 + i)))
-            {
-                inventory.UseItemAtSlot(i, player);
-                RefreshSlot(i);
-            }
-        }
     }
 
     public void RefreshSlot(int index)

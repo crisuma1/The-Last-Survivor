@@ -132,6 +132,9 @@ public class PlayerShooter : PlayerHandState
         // 총 상태일 때만 무기 변경 허용
         if (input.gunSlot >= 0)
         {
+            // 어떤입력락이라도걸려있으면 
+            if (statecontroller.IsAnyLocked())
+                return;
             ChangeGun(input.gunSlot);
         }
 
@@ -142,6 +145,14 @@ public class PlayerShooter : PlayerHandState
         // 눌렀을 때
         if (input.fireDown)
         {
+
+            // 어떤입력락이라도걸려있으면 
+            if (statecontroller.IsAnyLocked())
+                return;
+
+            //입력잠그기
+            statecontroller.Lock(InputLockType.Fire);
+
             firePressedTime = Time.time;
             isFiring = true;
 
@@ -155,15 +166,26 @@ public class PlayerShooter : PlayerHandState
         {
             isFiring = false;
             StopAutoFire();
+
+
         }
 
         if (input.reload)
         {
+            // 어떤입력락이라도걸려있으면 
+            if (statecontroller.IsAnyLocked())
+                return;
+
+            //입력잠그기
+            statecontroller.Lock(InputLockType.Reload);
+
             // 재장전 입력 감지시 재장전
             if (CurrentGun.Reload())
             {
                 // 재장전 성공시에만 재장전 애니메이션 재생
                 animator.SetTrigger("Reload");
+
+
             }
         }
         // 남은 탄약 UI를 갱신
@@ -212,6 +234,9 @@ public class PlayerShooter : PlayerHandState
         }
 
         animator.SetBool("Automatic", false);
+        statecontroller.Unlock(InputLockType.Fire);
+
+
     }
 
     //연사 코루틴도중에만약에무기를바꾸면 isFiring이 false처리가안되기때문에 여기서해줌

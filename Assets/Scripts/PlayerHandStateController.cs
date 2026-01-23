@@ -2,6 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum InputLockType
+{
+    None = 0,
+    Fire = 1 << 0,
+    Reload = 1 << 1,
+    UseItem = 1 << 2,
+    WeaponChange = 1 << 3,
+    Throw = 1 << 4,
+}
+
+
 public class PlayerHandStateController : MonoBehaviour
 {
     Dictionary<HandStateType, PlayerHandState> states;
@@ -14,6 +25,16 @@ public class PlayerHandStateController : MonoBehaviour
     public PlayerInput Input { get; private set; }
 
     public event Action<PlayerHandState> OnStateChanged;
+
+    [Header("Inventory References")]
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private InventoryUI inventoryUI;
+
+    public Inventory Inventory => inventory;
+    public InventoryUI InventoryUI => inventoryUI;
+
+    public InputLockType InputLock { get; private set; } = InputLockType.None;
+
 
     // Start is called before the first frame update
 
@@ -41,6 +62,34 @@ public class PlayerHandStateController : MonoBehaviour
             states.Add(state.StateType, state);
         }
 
+    }
+
+    public void Lock(InputLockType type)
+    {
+        InputLock |= type;
+    }
+
+    public void Unlock(InputLockType type)
+    {
+        InputLock &= ~type;
+    }
+
+    // 특정 락이 걸려 있는지
+    public bool IsLocked(InputLockType type)
+    {
+        return (InputLock & type) != 0;
+    }
+
+    // 하나라도 잠겨 있는지
+    public bool IsAnyLocked()
+    {
+        return InputLock != InputLockType.None;
+    }
+
+    //현재걸린lock모두해재
+    public void ClearAllLocks()
+    {
+        InputLock = InputLockType.None;
     }
 
     private void ApplySpineRotationByCamera()
@@ -110,6 +159,8 @@ public class PlayerHandStateController : MonoBehaviour
 
     public void ChangeState(HandStateType type)
     {
+
+
         var next = states[type];
         if (CurrentState == next) return;
 

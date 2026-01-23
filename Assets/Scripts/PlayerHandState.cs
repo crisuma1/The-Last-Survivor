@@ -8,6 +8,8 @@ public abstract class PlayerHandState : MonoBehaviour
     protected Animator animator;
     protected PlayerInput input;
     protected PlayerHandStateController statecontroller;
+    protected Inventory inventory;
+    protected InventoryUI inventoryUI;
 
     protected virtual void Awake()
     {
@@ -20,6 +22,9 @@ public abstract class PlayerHandState : MonoBehaviour
         statecontroller = c;
         animator = c.Animator;
         input = c.Input;
+        inventory = c.Inventory;
+        inventoryUI = c.InventoryUI;
+
     }
 
     public virtual void Enter() { }
@@ -28,6 +33,24 @@ public abstract class PlayerHandState : MonoBehaviour
 
     public virtual void HandleInput()
     {
+        if (input.itemSlot >= 0)
+        {
+            // 어떤입력락이라도걸려있으면 
+            if (statecontroller.IsAnyLocked())
+                return;
+
+            //입력잠그기
+            statecontroller.Lock(InputLockType.UseItem);
+
+            inventory.UseItemAtSlot(input.itemSlot, statecontroller.gameObject);
+            inventoryUI.RefreshSlot(input.itemSlot);
+
+            //입력잠그기해재
+            statecontroller.Unlock(InputLockType.UseItem);
+
+            input.InitItemSlot();
+        }
+
 
     }
 

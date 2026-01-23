@@ -12,6 +12,7 @@ public enum AimState
 }
 
 
+
 public class PlayerInput : MonoBehaviour
 {
     public string moveVerticalName = "Vertical"; // 앞뒤 움직임을 위한 입력축 이름
@@ -45,6 +46,8 @@ public class PlayerInput : MonoBehaviour
 
     public int gunSlot { get; private set; } = -1;
 
+    public int itemSlot { get; private set; } = -1;
+
     private void Awake()
     {
         shooter = GetComponent<PlayerShooter>();
@@ -54,6 +57,11 @@ public class PlayerInput : MonoBehaviour
     public void InitGunSlot()
     {
         gunSlot = -1;
+    }
+
+    public void InitItemSlot()
+    {
+        itemSlot = -1;
     }
     // 매프레임 사용자 입력을 감지
     private void Update()
@@ -80,8 +88,8 @@ public class PlayerInput : MonoBehaviour
         fireDown = Input.GetButtonDown(fireButtonName);
         fireUp = Input.GetButtonUp(fireButtonName);
 
-        
-        
+
+
         // reload에 관한 입력 감지
         reload = Input.GetButtonDown(reloadButtonName);
 
@@ -131,6 +139,17 @@ public class PlayerInput : MonoBehaviour
                 // 버튼을 떼는 순간
                 currentAimState = AimState.None;
                 isRightHeld = false;
+            }
+        }
+
+
+        //아이템사용키 
+        for (int i = 0; i < 10; i++)
+        {
+            if (Input.GetKeyDown((i == 9) ? KeyCode.Alpha0 : (KeyCode)((int)KeyCode.Alpha1 + i)))
+            {
+                itemSlot = i;
+                break;
             }
         }
 

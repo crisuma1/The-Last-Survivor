@@ -48,7 +48,8 @@ public class PlayerThrower : PlayerHandState
     public void UnEquip()
     {
         animator.SetTrigger("ThrowingToIdle");
-        equippedBomb.SetActive(false);
+        if (equippedBomb != null)
+            equippedBomb.SetActive(false);
     }
 
     public void Equip()
@@ -86,8 +87,18 @@ public class PlayerThrower : PlayerHandState
     {
         base.HandleInput();
 
+
+
+
         if (input.fireDown)
         {
+
+            // 어떤입력락이라도걸려있으면 
+            if (statecontroller.IsAnyLocked())
+                return;
+
+            //입력잠그기
+            statecontroller.Lock(InputLockType.Throw);
             // animator.SetBool("IsThrowing", false);
 
             animator.SetTrigger("Throw");
@@ -100,6 +111,9 @@ public class PlayerThrower : PlayerHandState
 
         if (input.gunSlot >= 0)
         {
+            // 어떤입력락이라도걸려있으면 
+            if (statecontroller.IsAnyLocked())
+                return;
 
             statecontroller.RequestState(HandStateType.Shooter);
 
