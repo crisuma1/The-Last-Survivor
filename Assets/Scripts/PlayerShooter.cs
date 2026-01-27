@@ -128,13 +128,19 @@ public class PlayerShooter : PlayerHandState
 
     public override void HandleInput()
     {
+
         base.HandleInput();
         // 총 상태일 때만 무기 변경 허용
         if (input.gunSlot >= 0)
         {
             // 어떤입력락이라도걸려있으면 
             if (statecontroller.IsAnyLocked())
+            {
+                statecontroller.Input.InitGunSlot();
                 return;
+            }
+
+
             ChangeGun(input.gunSlot);
         }
 
@@ -150,11 +156,15 @@ public class PlayerShooter : PlayerHandState
             if (statecontroller.IsAnyLocked())
                 return;
 
+            //Debug.Log("fIREGO");
+
             //입력잠그기
             statecontroller.Lock(InputLockType.Fire);
+            Debug.Log(input.fireDown);
 
             firePressedTime = Time.time;
             isFiring = true;
+
 
             FireOnce(); // 첫 발은 무조건 즉시
             TryStartAutoFire();
@@ -165,7 +175,7 @@ public class PlayerShooter : PlayerHandState
         if (input.fireUp)
         {
             isFiring = false;
-            StopAutoFire();
+            //StopAutoFire();
 
 
         }
@@ -180,13 +190,14 @@ public class PlayerShooter : PlayerHandState
             statecontroller.Lock(InputLockType.Reload);
 
             // 재장전 입력 감지시 재장전
-            if (CurrentGun.Reload())
+            if (!CurrentGun.Reload())
             {
-                // 재장전 성공시에만 재장전 애니메이션 재생
-                animator.SetTrigger("Reload");
-
+                statecontroller.ClearAllLocks();
+                return;
 
             }
+            // 재장전 성공시에만 재장전 애니메이션 재생
+            animator.SetTrigger("Reload");
         }
         // 남은 탄약 UI를 갱신
         UpdateUI();
@@ -201,9 +212,15 @@ public class PlayerShooter : PlayerHandState
 
     void FireOnce()
     {
-        if (!CurrentGun.Fire()) return;
+        if (!CurrentGun.Fire())
+        {
+            statecontroller.ClearAllLocks();
+            return;
+        }
+
 
         animator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
+        Debug.Log("ANIMATIONGO");
         OnFire?.Invoke(CurrentGun.gunData, input.currentAimState);
     }
 
@@ -222,6 +239,7 @@ public class PlayerShooter : PlayerHandState
 
         while (isFiring)
         {
+            statecontroller.Lock(InputLockType.Fire);
             if (CurrentGun.Fire())
             {
                 //Debug.Log("currentfire");
@@ -233,9 +251,10 @@ public class PlayerShooter : PlayerHandState
             yield return null; ;
         }
 
+
         animator.SetBool("Automatic", false);
         statecontroller.Unlock(InputLockType.Fire);
-
+        //Debug.Log("Unlock");
 
     }
 
@@ -250,6 +269,8 @@ public class PlayerShooter : PlayerHandState
 
         animator.SetBool("Automatic", false);
     }
+
+
 
     // 탄약 UI 갱신
     private void UpdateUI()

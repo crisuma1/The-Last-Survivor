@@ -48,10 +48,12 @@ public class PlayerInput : MonoBehaviour
 
     public int itemSlot { get; private set; } = -1;
 
+    private PlayerHandStateController stateController;
+
     private void Awake()
     {
         shooter = GetComponent<PlayerShooter>();
-
+        stateController = GetComponent<PlayerHandStateController>();
     }
 
     public void InitGunSlot()
@@ -66,6 +68,7 @@ public class PlayerInput : MonoBehaviour
     // 매프레임 사용자 입력을 감지
     private void Update()
     {
+        InitGunSlot();
 
         // 게임오버 상태에서는 사용자 입력을 감지하지 않는다
         if (GameManager.instance != null
@@ -96,20 +99,20 @@ public class PlayerInput : MonoBehaviour
         jumpPressed = Input.GetButtonDown("Jump");
 
         //총종류변경
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && stateController.InputLock == InputLockType.None)
         {
             gunSlot = 0;
 
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && stateController.InputLock == InputLockType.None)
         {
             gunSlot = 1;
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && stateController.InputLock == InputLockType.None)
         {
             gunSlot = 2;
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V) && stateController.InputLock == InputLockType.None)
         {
             gunSlot = 3;
         }
@@ -146,7 +149,7 @@ public class PlayerInput : MonoBehaviour
         //아이템사용키 
         for (int i = 0; i < 10; i++)
         {
-            if (Input.GetKeyDown((i == 9) ? KeyCode.Alpha0 : (KeyCode)((int)KeyCode.Alpha1 + i)))
+            if (Input.GetKeyDown((i == 9) ? KeyCode.Alpha0 : (KeyCode)((int)KeyCode.Alpha1 + i)) && stateController.InputLock == InputLockType.None)
             {
                 itemSlot = i;
                 break;

@@ -113,7 +113,11 @@ public class PlayerThrower : PlayerHandState
         {
             // 어떤입력락이라도걸려있으면 
             if (statecontroller.IsAnyLocked())
+            {
+                statecontroller.Input.InitGunSlot();
                 return;
+            }
+
 
             statecontroller.RequestState(HandStateType.Shooter);
 
