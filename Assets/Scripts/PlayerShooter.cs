@@ -10,6 +10,12 @@ public enum FireState
     Automatic
 }
 
+public enum GunType
+{
+    Smg,
+    Sniper
+}
+
 
 // 주어진 Gun 오브젝트를 쏘거나 재장전
 // 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
@@ -41,6 +47,8 @@ public class PlayerShooter : PlayerHandState
     private float firePressedTime; //마지막으로총을누른시간
     private Coroutine autoFireCoroutine; //총연사로직 
 
+    //총교체시 같이발동될필요가있는 이벤트 등록하는곳
+    public static event Action<GunType> OnChange;
 
 
     public void Awake()
@@ -95,6 +103,7 @@ public class PlayerShooter : PlayerHandState
         // 새 총 활성화
         CurrentGun.gameObject.SetActive(true);
         InitGun(CurrentGun);
+        OnChange?.Invoke(CurrentGun.gunData.GunType);
     }
 
     //총변경시총의Transform값조정

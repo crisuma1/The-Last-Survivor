@@ -24,6 +24,7 @@ public class PlayerHandStateController : MonoBehaviour
     public Animator Animator { get; private set; }
     public PlayerInput Input { get; private set; }
 
+
     public event Action<PlayerHandState> OnStateChanged;
 
     [Header("Inventory References")]
@@ -40,7 +41,7 @@ public class PlayerHandStateController : MonoBehaviour
 
     //카메라가아래를보면캐릭터도숙이기위해서 사용
     [Header("Aim Spine Control")]
-    [SerializeField] Transform cameraPivot;   // 카메라 피벗
+    [SerializeField] public Transform cameraPivot;   // 카메라 피벗
     [SerializeField] Transform spine;          // Spine 또는 Chest
     //스파인z값제외한나머지는기본값반영
     private Quaternion spineBaseLocalRotation;
@@ -162,7 +163,11 @@ public class PlayerHandStateController : MonoBehaviour
 
 
         var next = states[type];
-        if (CurrentState == next) return;
+        if (CurrentState == next)
+        {
+            //Debug.Log("byebye");
+            return;
+        }
 
 
         CurrentState?.Exit();

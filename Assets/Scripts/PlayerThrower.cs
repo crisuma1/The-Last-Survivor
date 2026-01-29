@@ -6,7 +6,7 @@ public class PlayerThrower : PlayerHandState
     [SerializeField] private Transform throwPosition;
     GameObject equippedBomb;
     private FireBomb currentBombData;
-    private int equippedSlotIndex = -1; //½½·ÔÀÇÀÎµ¦½ºÁ¤º¸
+    private int equippedSlotIndex = -1; //ìŠ¬ë¡¯ì˜ì¸ë±ìŠ¤ì •ë³´
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -17,30 +17,41 @@ public class PlayerThrower : PlayerHandState
     {
         bool isActive = (statecontroller.CurrentState == this);
 
-        // °°Àº ½½·ÔÀ» ´Ù½Ã ´©¸¥ °æ¿ì -> ¾Æ¹« °Íµµ ¾È ÇÔ
+        //Debug.Log(equippedSlotIndex == slotIndex);
+
+
+        // ê°™ì€ ìŠ¬ë¡¯ì„ ë‹¤ì‹œ ëˆ„ë¥¸ ê²½ìš° -> ì•„ë¬´ ê²ƒë„ ì•ˆ í•¨
         if (equippedSlotIndex == slotIndex && equippedBomb != null)
             return;
 
         equippedSlotIndex = slotIndex;
         currentBombData = fireBombData;
 
-        // ±âÁ¸ ÆøÅº Á¦°Å
+        // ê¸°ì¡´ í­íƒ„ ì œê±°
         if (equippedBomb != null)
         {
             Destroy(equippedBomb);
             equippedBomb = null;
         }
 
-        // »õ ÆøÅº »ı¼º
+        // ìƒˆ í­íƒ„ ìƒì„±
         equippedBomb = Instantiate(currentBombData.FireBombPrefab, throwPosition);
+
         equippedBomb.transform.localPosition = Vector3.zero;
+
         equippedBomb.transform.localRotation = Quaternion.identity;
+
         equippedBomb.GetComponent<ItemEffect>()?.EffectOff();
+
         equippedBomb.SetActive(false);
 
-        // ÀÌ¹Ì Thrower »óÅÂ¸é Áï½Ã º¸¿©ÁÖ±â
+
+        // ì´ë¯¸ Thrower ìƒíƒœë©´ ì¦‰ì‹œ ë³´ì—¬ì£¼ê¸°
         if (isActive)
             Equip();
+
+
+        //Debug.Log(equippedBomb != null);
     }
 
 
@@ -56,6 +67,9 @@ public class PlayerThrower : PlayerHandState
     {
         animator.SetTrigger("IsThrowing");
         equippedBomb.SetActive(true);
+        Debug.Log(equippedBomb != null);
+        //equippedBomb.AddComponent<Rigidbody>();
+
         Debug.Log("Equipped");
     }
 
@@ -87,21 +101,23 @@ public class PlayerThrower : PlayerHandState
     {
         base.HandleInput();
 
-
+        //Debug.Log(equippedBomb != null);
 
 
         if (input.fireDown)
         {
 
-            // ¾î¶²ÀÔ·Â¶ôÀÌ¶óµµ°É·ÁÀÖÀ¸¸é 
+            // ì–´ë–¤ì…ë ¥ë½ì´ë¼ë„ê±¸ë ¤ìˆìœ¼ë©´ 
             if (statecontroller.IsAnyLocked())
                 return;
 
-            //ÀÔ·ÂÀá±×±â
+            //ì…ë ¥ì ê·¸ê¸°
             statecontroller.Lock(InputLockType.Throw);
             // animator.SetBool("IsThrowing", false);
 
             animator.SetTrigger("Throw");
+
+
             //Debug.Log("firehall");
         }
 
@@ -111,7 +127,7 @@ public class PlayerThrower : PlayerHandState
 
         if (input.gunSlot >= 0)
         {
-            // ¾î¶²ÀÔ·Â¶ôÀÌ¶óµµ°É·ÁÀÖÀ¸¸é 
+            // ì–´ë–¤ì…ë ¥ë½ì´ë¼ë„ê±¸ë ¤ìˆìœ¼ë©´ 
             if (statecontroller.IsAnyLocked())
             {
                 statecontroller.Input.InitGunSlot();
@@ -131,6 +147,28 @@ public class PlayerThrower : PlayerHandState
     {
 
         UpdateUI();
+    }
+
+    public void ReleasedBomb()
+    {
+        equippedBomb.transform.SetParent(null);
+
+        Rigidbody rb = equippedBomb.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+
+        Vector3 forward = statecontroller.cameraPivot.transform.forward;
+
+        // ìœ„ë¥¼ ë³¼ìˆ˜ë¡ upPower ê°ì†Œ
+        float upPower = Mathf.Lerp(6f, 2f, Mathf.Clamp01(forward.y));
+
+        Vector3 throwDir =
+            forward * 14f +
+            Vector3.up * upPower;
+
+        rb.AddForce(throwDir, ForceMode.VelocityChange);
+
+
+        equippedBomb = null;
     }
 
     public override void Exit()

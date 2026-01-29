@@ -144,7 +144,7 @@ private void OnValidate()
         EventSystem.current.IsPointerOverGameObject())
             return false;
 
-        Debug.Log(state);
+        //Debug.Log(state);
         if (state != State.Ready) return false;
 
         if (Time.time < lastFireTime + gunData.timeBetFire) return false;
