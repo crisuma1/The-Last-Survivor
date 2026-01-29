@@ -102,7 +102,7 @@ public class PlayerThrower : PlayerHandState
             // animator.SetBool("IsThrowing", false);
 
             animator.SetTrigger("Throw");
-            Debug.Log("firehall");
+            //Debug.Log("firehall");
         }
 
 

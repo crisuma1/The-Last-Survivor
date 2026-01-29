@@ -12,7 +12,6 @@ public class Gun : MonoBehaviour
     public enum State
     {
         Ready, // 발사 준비됨
-        Empty, // 탄창이 빔
         Reloading // 재장전 중
     }
 
@@ -145,10 +144,12 @@ private void OnValidate()
         EventSystem.current.IsPointerOverGameObject())
             return false;
 
-
+        Debug.Log(state);
         if (state != State.Ready) return false;
+
         if (Time.time < lastFireTime + gunData.timeBetFire) return false;
 
+        if (magAmmo <= 0) return false;
 
         lastFireTime = Time.time;
         Shot();
@@ -159,7 +160,7 @@ private void OnValidate()
     private void Shot()
     {
 
-
+        if (magAmmo <= 0) return;
         //실제피격판정ray는 카메라중앙에서나감
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
 
@@ -214,11 +215,6 @@ private void OnValidate()
 
         // 남은 탄환의 수를 -1
         magAmmo--;
-        if (magAmmo <= 0)
-        {
-            // 탄창에 남은 탄약이 없다면, 총의 현재 상태를 Empty으로 갱신
-            state = State.Empty;
-        }
     }
 
     // 발사 이펙트와 소리를 재생하고 총알 궤적을 그린다
@@ -274,6 +270,8 @@ private void OnValidate()
         // 재장전 소요 시간 만큼 처리를 쉬기
         yield return new WaitForSeconds(gunData.reloadTime);
 
+
+
         // 탄창에 채울 탄약을 계산한다
         int ammoToFill = gunData.magCapacity - magAmmo;
 
@@ -290,6 +288,14 @@ private void OnValidate()
         ammoRemain -= ammoToFill;
 
         // 총의 현재 상태를 발사 준비된 상태로 변경
+        state = State.Ready;
+    }
+
+
+
+    public void InitState()
+    {
+        StopAllCoroutines();        // 코루틴 정지
         state = State.Ready;
     }
 }

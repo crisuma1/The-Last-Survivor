@@ -33,7 +33,7 @@ public abstract class PlayerHandState : MonoBehaviour
 
     public virtual void HandleInput()
     {
-        // Debug.Log(statecontroller.InputLock);
+        //Debug.Log(statecontroller.InputLock);
         if (input.itemSlot >= 0)
         {
             // 어떤입력락이라도걸려있으면 

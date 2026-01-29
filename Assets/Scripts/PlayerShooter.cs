@@ -81,7 +81,13 @@ public class PlayerShooter : PlayerHandState
         if (index == currentGunIndex) return;
         // 이전 총 비활성화
         if (CurrentGun != null)
+        {
+            //총장전시에실행중인 reloadcouroutine이중단되는거 방지하기위해 사용
+            CurrentGun.InitState();
             CurrentGun.gameObject.SetActive(false);
+
+        }
+
 
         currentGunIndex = index;
         CurrentGun = Guns[index];
@@ -113,8 +119,6 @@ public class PlayerShooter : PlayerHandState
         CurrentAdsFOV = CurrentGun.gunData.adsFOV;
         CurrentScopeFOV = CurrentGun.gunData.scopeFOV;
     }
-
-
 
     public override void Enter()
     {
@@ -160,7 +164,7 @@ public class PlayerShooter : PlayerHandState
 
             //입력잠그기
             statecontroller.Lock(InputLockType.Fire);
-            Debug.Log(input.fireDown);
+            //Debug.Log(input.fireDown);
 
             firePressedTime = Time.time;
             isFiring = true;
@@ -212,6 +216,8 @@ public class PlayerShooter : PlayerHandState
 
     void FireOnce()
     {
+        Debug.Log(CurrentGun);
+
         if (!CurrentGun.Fire())
         {
             statecontroller.ClearAllLocks();
@@ -240,6 +246,7 @@ public class PlayerShooter : PlayerHandState
         while (isFiring)
         {
             statecontroller.Lock(InputLockType.Fire);
+
             if (CurrentGun.Fire())
             {
                 //Debug.Log("currentfire");
