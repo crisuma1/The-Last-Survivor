@@ -8,6 +8,8 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Triggered!");
+
         if (!other.CompareTag("Player")) return;
 
         var inventory = other.GetComponent<Inventory>();
