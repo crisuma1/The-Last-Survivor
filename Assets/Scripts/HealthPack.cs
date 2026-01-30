@@ -30,4 +30,9 @@ public class HealthPack : ScriptableObject, IItem
         Quantity--;
 
     }
+
+    public void UseAfterClick(GameObject target, int slotIndex)
+    {
+
+    }
 }

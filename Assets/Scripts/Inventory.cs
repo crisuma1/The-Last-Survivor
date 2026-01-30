@@ -19,9 +19,26 @@ public class Inventory : MonoBehaviour
             }
         }
 
+    }
 
+    public void UseItemOutofSlot(int index, GameObject player)
+    {
+        if (index < 0 || index >= itemSlots.Length) return;
+
+        IItem item = itemSlots[index];
+        if (item != null && item.Quantity > 0)
+        {
+            item.UseAfterClick(player, index);
+
+            if (item.Quantity <= 0)
+            {
+                itemSlots[index] = null;
+            }
+        }
 
     }
+
+
 
 
     public void SetItem(int index, IItem item)

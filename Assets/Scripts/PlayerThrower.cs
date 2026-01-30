@@ -4,7 +4,7 @@ public class PlayerThrower : PlayerHandState
 {
     public override HandStateType StateType => HandStateType.Thrower;
     [SerializeField] private Transform throwPosition;
-    GameObject equippedBomb;
+    public GameObject equippedBomb;
     private FireBomb currentBombData;
     private int equippedSlotIndex = -1; //슬롯의인덱스정보
     // Start is called before the first frame update
@@ -106,6 +106,8 @@ public class PlayerThrower : PlayerHandState
 
         if (input.fireDown)
         {
+            //폭탄이없으면 return하게 처리
+            //폭탄개수관리코드넣기
 
             // 어떤입력락이라도걸려있으면 
             if (statecontroller.IsAnyLocked())
@@ -156,7 +158,7 @@ public class PlayerThrower : PlayerHandState
         Rigidbody rb = equippedBomb.GetComponent<Rigidbody>();
         rb.isKinematic = false;
 
-        Vector3 forward = statecontroller.cameraPivot.transform.forward;
+        Vector3 forward = -statecontroller.cameraPivot.transform.forward;
 
         // 위를 볼수록 upPower 감소
         float upPower = Mathf.Lerp(6f, 2f, Mathf.Clamp01(forward.y));
@@ -168,7 +170,13 @@ public class PlayerThrower : PlayerHandState
         rb.AddForce(throwDir, ForceMode.VelocityChange);
 
 
+        rb.useGravity = true;     //  중력 ON
+
+        inventory.UseItemOutofSlot(equippedSlotIndex, statecontroller.gameObject);
+        inventoryUI.RefreshSlot(equippedSlotIndex);
+
         equippedBomb = null;
+
     }
 
     public override void Exit()

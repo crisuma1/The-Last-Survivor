@@ -34,4 +34,9 @@ public class AmmoPack : ScriptableObject, IItem
         Quantity--;
 
     }
+
+    public void UseAfterClick(GameObject target, int slotIndex)
+    {
+
+    }
 }

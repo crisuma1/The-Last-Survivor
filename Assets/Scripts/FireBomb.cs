@@ -36,4 +36,19 @@ public class FireBomb : ScriptableObject, IItem
 
         //Quantity--;
     }
+
+    public void UseAfterClick(GameObject target, int slotIndex)
+    {
+        // 전달 받은 게임 오브젝트로부터 Playerthrower 컴포넌트를 가져오기 시도
+        PlayerThrower playerThrower = target.GetComponent<PlayerThrower>();
+
+        // Playerthrower 컴포넌트가 있으며, 폭탄 오브젝트가 존재하면
+        if (playerThrower != null && playerThrower.equippedBomb != null)
+        {
+            // 폭탄의개수를줄입니다
+            Quantity--;
+        }
+
+
+    }
 }
