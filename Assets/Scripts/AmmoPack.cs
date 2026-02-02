@@ -5,7 +5,7 @@
 public class AmmoPack : ScriptableObject, IItem
 {
 
-    [SerializeField] private string itemName = "Ammo Pack"; // 아이템 이름
+    [SerializeField] private string itemName = "AmmoPack"; // 아이템 이름
     [SerializeField] private Sprite icon; // 아이템 아이콘
     [SerializeField] private int quantity = 1; // 아이템 수량
     [SerializeField] private int ammoAmount = 30;

@@ -50,6 +50,8 @@ public abstract class PlayerHandState : MonoBehaviour
             inventory.UseItemAtSlot(input.itemSlot, statecontroller.gameObject);
             inventoryUI.RefreshSlot(input.itemSlot);
 
+
+
             //입력잠그기해재
             statecontroller.Unlock(InputLockType.UseItem);
 

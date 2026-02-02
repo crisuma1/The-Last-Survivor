@@ -75,7 +75,8 @@ public class PlayerThrower : PlayerHandState
 
     private void UpdateUI()
     {
-
+        inventory.UseItemOutofSlot(equippedSlotIndex, statecontroller.gameObject);
+        inventoryUI.RefreshSlot(equippedSlotIndex);
     }
 
 
@@ -106,6 +107,8 @@ public class PlayerThrower : PlayerHandState
 
         if (input.fireDown)
         {
+            if (equippedBomb == null)
+                return;
             //폭탄이없으면 return하게 처리
             //폭탄개수관리코드넣기
 
@@ -172,8 +175,7 @@ public class PlayerThrower : PlayerHandState
 
         rb.useGravity = true;     //  중력 ON
 
-        inventory.UseItemOutofSlot(equippedSlotIndex, statecontroller.gameObject);
-        inventoryUI.RefreshSlot(equippedSlotIndex);
+        UpdateUI();
 
         equippedBomb = null;
 

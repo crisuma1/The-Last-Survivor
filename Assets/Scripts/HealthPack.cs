@@ -4,7 +4,7 @@
 [CreateAssetMenu(menuName = "Items/HealthPack", fileName = "New Health Pack")]
 public class HealthPack : ScriptableObject, IItem
 {
-    [SerializeField] private string itemName = "Heal Potion";
+    [SerializeField] private string itemName = "HealPotion";
     [SerializeField] private Sprite icon;
     [SerializeField] private int quantity = 1;
     [SerializeField] private int healAmount = 50;

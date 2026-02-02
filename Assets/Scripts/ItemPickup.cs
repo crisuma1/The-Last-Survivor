@@ -31,6 +31,16 @@ public class ItemPickup : MonoBehaviour
         // ºó ½½·Ô¿¡ ³Ö±â (0 ¡æ 9)
         for (int i = 0; i < inventory.itemSlots.Length; i++)
         {
+            if (inventory.TryAddToSlot(i, newItem))
+            {
+                ui?.RefreshSlot(i);
+                ph.PlayPickupSfx();
+                break;
+            }
+
+
+
+
             if (inventory.itemSlots[i] == null)
             {
                 inventory.SetItem(i, newItem);
@@ -38,6 +48,8 @@ public class ItemPickup : MonoBehaviour
                 ph.PlayPickupSfx();
                 break;
             }
+
+            inventory.CompactAndMerge();
         }
 
         Destroy(gameObject);
