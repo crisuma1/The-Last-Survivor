@@ -3,6 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//총의조준모드
+public enum AimState
+{
+    None,
+    ADS,
+    SCope
+}
+
+
 //총이연사인지단발인지 설정
 public enum FireState
 {
@@ -49,6 +59,17 @@ public class PlayerShooter : PlayerHandState
 
     //총교체시 같이발동될필요가있는 이벤트 등록하는곳
     public static event Action<GunType> OnChange;
+
+
+    //현재에임상태
+    public AimState currentAimState = AimState.None;
+
+    //-1값은 마우스우클릭을처음눌럿을때 ADS로설정하기위한 임시값
+    float lastRightClickTime = -1f;
+    //우클릭한번누른상태에서 다시누를떄scope상태로가기위한최소시간
+    float doubleClickThreshold = 1f;
+    //우클릭누르는중인지
+    bool isRightHeld = false;
 
 
     public void Awake()
@@ -236,7 +257,7 @@ public class PlayerShooter : PlayerHandState
 
         animator.SetTrigger(CurrentGun.gunData.recoilTriggerName);
         Debug.Log("ANIMATIONGO");
-        OnFire?.Invoke(CurrentGun.gunData, input.currentAimState);
+        OnFire?.Invoke(CurrentGun.gunData, currentAimState);
     }
 
     void TryStartAutoFire()
@@ -260,7 +281,7 @@ public class PlayerShooter : PlayerHandState
             {
                 //Debug.Log("currentfire");
                 animator.SetBool("Automatic", true);
-                OnFire?.Invoke(CurrentGun.gunData, input.currentAimState);
+                OnFire?.Invoke(CurrentGun.gunData, currentAimState);
             }
 
             //한프레임에계속호출되는거방지
@@ -297,6 +318,36 @@ public class PlayerShooter : PlayerHandState
             GlobalUIManager.instance.UpdateAmmoText(CurrentGun.magAmmo, CurrentGun.ammoRemain);
         }
     }
+
+    public override void OnAimPressed()
+    {
+        float now = Time.time;
+
+        if (now - lastRightClickTime <= doubleClickThreshold)
+        {
+            currentAimState = AimState.SCope;
+        }
+        else
+        {
+            currentAimState = AimState.ADS;
+        }
+        lastRightClickTime = now;
+        isRightHeld = true;
+    }
+
+    public override void OnAimReleased()
+    {
+        if (isRightHeld)
+        {
+            // 버튼을 떼는 순간
+            currentAimState = AimState.None;
+            isRightHeld = false;
+        }
+
+    }
+
+
+
 
 
     // 애니메이터의 IK 갱신

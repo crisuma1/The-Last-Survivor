@@ -3738,7 +3738,6 @@ MonoBehaviour:
   moveHorizontalName: Horizontal
   fireButtonName: Fire1
   reloadButtonName: Reload
-  currentAimState: 0
 --- !u!114 &8512681968067611305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3780,6 +3779,7 @@ MonoBehaviour:
   CurrentAdsFOV: 0
   CurrentScopeFOV: 0
   autoFireStartDelay: 0.15
+  currentAimState: 0
 --- !u!114 &8512681968067611298
 MonoBehaviour:
   m_ObjectHideFlags: 0

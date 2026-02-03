@@ -47615,7 +47615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c0ca616db92324cbd7053a010cc9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 2189165696339977853}
+  playerShooter: {fileID: 2189165696339977855}
   stateController: {fileID: 2189165696339977875}
   scopeUI: {fileID: 1370513226}
 --- !u!1001 &1441720198

@@ -93,6 +93,18 @@ public class PlayerHandStateController : MonoBehaviour
         InputLock = InputLockType.None;
     }
 
+    public void OnAimPressed()
+    {
+        if (InputLock == InputLockType.None)
+            CurrentState?.OnAimPressed();
+    }
+
+    public void OnAimReleased()
+    {
+        CurrentState?.OnAimReleased();
+    }
+
+
     private void ApplySpineRotationByCamera()
     {
 

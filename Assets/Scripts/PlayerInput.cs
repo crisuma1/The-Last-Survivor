@@ -4,15 +4,6 @@
 // 감지된 입력값을 다른 컴포넌트들이 사용할 수 있도록 제공
 
 
-public enum AimState
-{
-    None,
-    ADS,
-    SCope
-}
-
-
-
 public class PlayerInput : MonoBehaviour
 {
     public string moveVerticalName = "Vertical"; // 앞뒤 움직임을 위한 입력축 이름
@@ -35,14 +26,7 @@ public class PlayerInput : MonoBehaviour
 
     public PlayerShooter shooter { get; private set; }
 
-    public AimState currentAimState = AimState.None;
 
-    //-1값은 마우스우클릭을처음눌럿을때 ADS로설정하기위한 임시값
-    float lastRightClickTime = -1f;
-    //우클릭한번누른상태에서 다시누를떄scope상태로가기위한최소시간
-    float doubleClickThreshold = 1f;
-    //우클릭누르는중인지
-    bool isRightHeld = false;
 
     public int gunSlot { get; private set; } = -1;
 
@@ -118,32 +102,20 @@ public class PlayerInput : MonoBehaviour
         }
 
         //마우스우클릭한번시중간줌->두번클릭시확대줌
+
+        //우클릭누른순간
         if (Input.GetMouseButtonDown(1))
         {
-            float now = Time.time;
-
-            if (now - lastRightClickTime <= doubleClickThreshold)
-            {
-                currentAimState = AimState.SCope;
-            }
-            else
-            {
-                currentAimState = AimState.ADS;
-            }
-            lastRightClickTime = now;
-            isRightHeld = true;
+            stateController.OnAimPressed();
         }
 
-        // 우클릭 유지 중
-        if (isRightHeld)
+        // 우클릭 땐순간
+        if (Input.GetMouseButtonUp(1))
         {
-            if (!Input.GetMouseButton(1))
-            {
-                // 버튼을 떼는 순간
-                currentAimState = AimState.None;
-                isRightHeld = false;
-            }
+            stateController.OnAimReleased();
         }
+
+
 
 
         //아이템사용키 

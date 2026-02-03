@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScopeUIController : MonoBehaviour
 {
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerShooter playerShooter;
     [SerializeField] private PlayerHandStateController stateController;
     [SerializeField] private GameObject scopeUI;
 
@@ -13,7 +13,7 @@ public class ScopeUIController : MonoBehaviour
 
     void Update()
     {
-        bool isScopeInput = playerInput.currentAimState == AimState.SCope;
+        bool isScopeInput = playerShooter.currentAimState == AimState.SCope;
         bool isShooterState = stateController.CurrentState.StateType == HandStateType.Shooter;
 
         scopeUI.SetActive(isScopeInput && isShooterState);

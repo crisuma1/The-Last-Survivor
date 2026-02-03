@@ -15,7 +15,15 @@ public abstract class PlayerHandState : MonoBehaviour
     {
 
     }
+    public virtual void OnAimPressed()
+    {
 
+    }
+
+    public virtual void OnAimReleased()
+    {
+
+    }
 
     public virtual void Init(PlayerHandStateController c)
     {

@@ -171,7 +171,7 @@ public class CameraControl : MonoBehaviour
     {
         if (!canLook) return; //카메라잠금이면 아예작동안하게
 
-        bool isScope = playerInput.currentAimState == AimState.SCope;
+        bool isScope = shooter.currentAimState == AimState.SCope;
         Camera.main.cullingMask = isScope ? scopeMask : normalMask;
 
 
@@ -232,7 +232,7 @@ public class CameraControl : MonoBehaviour
 
         //if (PlayerWeaponState.CurrentMode == WeaponMode.Gun)
         {
-            switch (playerInput.currentAimState)
+            switch (shooter.currentAimState)
             {
                 case AimState.None:
                     {
