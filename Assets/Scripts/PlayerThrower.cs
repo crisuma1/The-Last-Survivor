@@ -151,7 +151,7 @@ public class PlayerThrower : PlayerHandState
     public void Throw()
     {
 
-        UpdateUI();
+        //UpdateUI();
     }
 
     public void ReleasedBomb()
